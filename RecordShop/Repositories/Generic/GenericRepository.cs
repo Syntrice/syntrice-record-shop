@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RecordShop.Model;
 
-namespace RecordShop.Repository
+namespace RecordShop.Repositories.Generic
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IEntity
     {
@@ -53,7 +53,7 @@ namespace RecordShop.Repository
         public Func<int> InsertEntity(TEntity entity)
         {
             _dbContext.Set<TEntity>().Add(entity);
-            return () => (entity.Id);
+            return () => entity.Id;
         }
 
         public void Save()

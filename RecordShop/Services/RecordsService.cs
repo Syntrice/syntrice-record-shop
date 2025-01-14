@@ -1,8 +1,8 @@
-﻿using RecordShop.Repository;
+﻿using RecordShop.Repositories;
 
 namespace RecordShop.Services
 {
-    public class RecordsService : IRecordService
+    public class RecordsService : IRecordsService
     {
         private readonly IRecordsRepository _recordRepository;
 

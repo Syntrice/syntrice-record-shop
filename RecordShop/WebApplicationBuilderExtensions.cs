@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RecordShop.Model;
-using RecordShop.Repository;
+using RecordShop.Repositories;
 using RecordShop.Services;
 
 namespace RecordShop
@@ -35,8 +35,8 @@ namespace RecordShop
 
         public static void SetupServices(this WebApplicationBuilder builder)
         {
-            builder.Services.AddScoped<IGenreService, GenresService>();
-            builder.Services.AddScoped<IRecordService, RecordsService>();
+            builder.Services.AddScoped<IGenresService, GenresService>();
+            builder.Services.AddScoped<IRecordsService, RecordsService>();
         }
     }
 }

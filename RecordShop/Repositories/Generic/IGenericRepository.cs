@@ -1,6 +1,6 @@
 ﻿using RecordShop.Model;
 
-namespace RecordShop.Repository
+namespace RecordShop.Repositories.Generic
 {
     public interface IGenericRepository<TEntity> where TEntity : class, IEntity
     {
