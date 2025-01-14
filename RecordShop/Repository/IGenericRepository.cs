@@ -1,19 +1,22 @@
-﻿namespace RecordShop.Repository
+﻿using RecordShop.Model;
+
+namespace RecordShop.Repository
 {
-    public interface IGenericRepository<T>
+    public interface IGenericRepository<TEntity> where TEntity : class, IEntity
     {
         // Create
-        public T InsertItem(T item);
+        public Func<int> InsertEntity(TEntity entity);
 
         // Read
-        public IEnumerable<T> GetItems();
-        public T? GetItemById(int id);
+        public IEnumerable<TEntity> GetEntities();
+
+        public TEntity? GetEntityById(int id);
 
         // Update
-        public T? UpdateItem(T item);
+        public TEntity? UpdateEntity(TEntity entity);
 
         // Delete
-        public T? DeleteItemById(int id);
+        public TEntity? DeleteEntityById(int id);
 
         // Save
         public void Save();

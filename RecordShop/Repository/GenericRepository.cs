@@ -1,9 +1,10 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using RecordShop.Model;
 
 namespace RecordShop.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T>
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IEntity
     {
         private readonly RecordShopDbContext _dbContext;
 
@@ -12,34 +13,70 @@ namespace RecordShop.Repository
             _dbContext = dbContext;
         }
 
-        public T? DeleteItemById(int id)
+        /// <summary>
+        /// Deletes the entity with the given id from the repository.
+        /// </summary>
+        /// <returns>The entity deleted from the databse. Will return null if no entity found with given id.</returns>
+        public TEntity? DeleteEntityById(int id)
         {
-            throw new NotImplementedException();
+            TEntity? entity = _dbContext.Set<TEntity>().Find(id); // Check if entity exists
+            if (entity != null)
+            {
+                _dbContext.Set<TEntity>().Remove(entity);
+            }
+            return entity;
         }
 
-        public T? GetItemById(int id)
+        /// <summary>
+        /// Gets the entity with the given id from the repository.
+        /// </summary>
+        /// <returns>The found entity. Will return null if no entity found with given id.</returns>
+        public TEntity? GetEntityById(int id)
         {
-            throw new NotImplementedException();
+            return _dbContext.Set<TEntity>().AsNoTracking().FirstOrDefault(e => e.Id == id);
         }
 
-        public IEnumerable<T> GetItems()
+        /// <summary>
+        /// Gets all entities in the repository.
+        /// </summary>
+        public IEnumerable<TEntity> GetEntities()
         {
-            throw new NotImplementedException();
+            return _dbContext.Set<TEntity>().AsNoTracking().ToList();
         }
 
-        public T InsertItem(T item)
+        /// <summary>
+        /// Inserts an entity into the repository.
+        /// </summary>
+        /// <param name="entity">The entity to add to the repository</param>
+        /// <returns>A function which can be invokes to retrieve the entity id value. 
+        /// This can be called after saving the repository, to get an automatically assigned id for example.</returns>
+        public Func<int> InsertEntity(TEntity entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Set<TEntity>().Add(entity);
+            return () => (entity.Id);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _dbContext.SaveChanges();
         }
 
-        public T? UpdateItem(T item)
+        /// <summary>
+        /// Updates the given entity according to its id value.
+        /// </summary>
+        /// <param name="entity">The entity to update. The id value will be used to match to an existing entity.</param>
+        /// <returns>The updated entity. Will return null if no entity found with the given id.</returns>
+        public TEntity? UpdateEntity(TEntity entity)
         {
-            throw new NotImplementedException();
+            TEntity? existingEntity = _dbContext.Set<TEntity>().Find(entity.Id); // Check if entity exists
+
+            if (existingEntity != null)
+            {
+                _dbContext.Entry(existingEntity).State = EntityState.Modified;
+                _dbContext.Entry(existingEntity).CurrentValues.SetValues(entity);
+            }
+
+            return existingEntity;
         }
     }
 }
