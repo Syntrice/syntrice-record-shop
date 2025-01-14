@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RecordShop.Model;
 using RecordShop.Services;
 
 namespace RecordShop.Controllers.API
@@ -15,9 +16,33 @@ namespace RecordShop.Controllers.API
         }
 
         [HttpGet]
-        public IActionResult Hello()
+        public IActionResult GetGenres()
         {
-            return Ok("Hello world!");
+            return BadRequest();
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetGenreById(int id)
+        {
+            return BadRequest();
+        }
+
+        [HttpPost]
+        public IActionResult PostGenre(Genre genre)
+        {
+            return BadRequest();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteGenreById(int id)
+        {
+            return BadRequest();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult PutGenre(int id,  Genre genre)
+        {
+            return BadRequest();
         }
     }
 }
