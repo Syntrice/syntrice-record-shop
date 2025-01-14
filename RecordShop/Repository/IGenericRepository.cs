@@ -1,6 +1,6 @@
 ﻿namespace RecordShop.Repository
 {
-    public interface IRepository<T>
+    public interface IGenericRepository<T>
     {
         // Create
         public T InsertItem(T item);

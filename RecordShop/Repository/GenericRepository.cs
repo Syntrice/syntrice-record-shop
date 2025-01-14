@@ -1,25 +1,33 @@
-﻿using RecordShop.Model;
+﻿
+using RecordShop.Model;
 
 namespace RecordShop.Repository
 {
-    public class StockRepository : IRepository<Stock>
+    public class GenericRepository<T> : IGenericRepository<T>
     {
-        public Stock? DeleteItemById(int id)
+        private readonly RecordShopDbContext _dbContext;
+
+        public GenericRepository(RecordShopDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public T? DeleteItemById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Stock? GetItemById(int id)
+        public T? GetItemById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Stock> GetItems()
+        public IEnumerable<T> GetItems()
         {
             throw new NotImplementedException();
         }
 
-        public Stock InsertItem(Stock item)
+        public T InsertItem(T item)
         {
             throw new NotImplementedException();
         }
@@ -29,7 +37,7 @@ namespace RecordShop.Repository
             throw new NotImplementedException();
         }
 
-        public Stock? UpdateItem(Stock item)
+        public T? UpdateItem(T item)
         {
             throw new NotImplementedException();
         }
