@@ -10,19 +10,24 @@ namespace RecordShop.Tests.Services.Generic
 {
     public class GenericServiceTests
     {
-        private Mock<GenericRepository<MockEntity>> _repoMock;
+        private Mock<IGenericRepository<MockEntity>> _repoMock;
         private GenericService<MockEntity> _service;
 
         [SetUp]
         public void Init()
         {
-            _repoMock = new Mock<GenericRepository<MockEntity>>();
+            _repoMock = new Mock<IGenericRepository<MockEntity>>();
             _service = new GenericService<MockEntity>(_repoMock.Object);
         }
 
         [Test]
         public void DeleteEntityById_ShouldCallAppropriateRepoMethods([Range(0,10,2)] int id)
         {
+
+            // ARRANGE
+            var mockEntity = new MockEntity() { Id = id };
+            _repoMock.Setup(x => x.DeleteEntityById(id)).Returns(mockEntity);
+
             // ACT
             _service.DeleteEntityById(id);
 
@@ -183,6 +188,7 @@ namespace RecordShop.Tests.Services.Generic
         {
             // ARRANGE
             MockEntity mockEntity = new MockEntity() { Id = 10 };
+            _repoMock.Setup(x => x.InsertEntity(mockEntity)).Returns(() => 11);
 
             // ACT
             _service.InsertEntity(mockEntity);
@@ -205,7 +211,7 @@ namespace RecordShop.Tests.Services.Generic
             var response = _service.InsertEntity(mockEntity);
 
             // ASSERT
-            response.Value.Should().Be(expectedEntity);
+            response.Value.Should().BeEquivalentTo(expectedEntity);
         }
 
         [Test]
@@ -227,9 +233,10 @@ namespace RecordShop.Tests.Services.Generic
         {
             // ARRANGE
             MockEntity mockEntity = new MockEntity() { Id = 10 };
+            _repoMock.Setup(x => x.UpdateEntity(mockEntity)).Returns(mockEntity);
 
             // ACT
-            _service.InsertEntity(mockEntity);
+            _service.UpdateEntity(mockEntity);
 
             // ASSERT
             _repoMock.Verify(x => x.UpdateEntity(mockEntity), Times.Once);
@@ -262,11 +269,11 @@ namespace RecordShop.Tests.Services.Generic
 
             // ASSERT
             response.ResponseType.Should().Be(ServiceResponseType.NotFound);
-        }
+        }   
+    }
 
-        private class MockEntity : IEntity
-        {
-            public int Id { get; set; }
-        }
+    public class MockEntity : IEntity
+    {
+        public int Id { get; set; }
     }
 }
