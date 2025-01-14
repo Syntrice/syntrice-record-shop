@@ -1,6 +1,7 @@
 ﻿using RecordShop.Model;
+using RecordShop.Repositories.Generic;
 
-namespace RecordShop.Repository
+namespace RecordShop.Repositories
 {
     public class RecordsRepository : GenericRepository<Record>, IRecordsRepository
     {

@@ -7,9 +7,9 @@ namespace RecordShop.Controllers.API
     [Route("api/[controller]")]
     public class GenresController : ControllerBase
     {
-        private readonly IGenreService _genreService;
+        private readonly IGenresService _genreService;
 
-        public GenresController(IGenreService genreService)
+        public GenresController(IGenresService genreService)
         {
             _genreService = genreService;
         }

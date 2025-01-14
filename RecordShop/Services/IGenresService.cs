@@ -1,6 +1,6 @@
 ﻿namespace RecordShop.Services
 {
-    public interface IRecordService
+    public interface IGenresService
     {
     }
 }

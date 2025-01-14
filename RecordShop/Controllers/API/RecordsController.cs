@@ -8,9 +8,9 @@ namespace RecordShop.Controllers.API
     [Route("api/[controller]")]
     public class RecordsController : ControllerBase
     {
-        private readonly IRecordService recordService;
+        private readonly IRecordsService recordService;
 
-        public RecordsController(IRecordService recordService)
+        public RecordsController(IRecordsService recordService)
         {
             this.recordService = recordService;
         }
