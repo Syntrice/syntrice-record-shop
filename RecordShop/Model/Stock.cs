@@ -1,6 +1,6 @@
 ﻿namespace RecordShop.Model
 {
-    public class Stock
+    public class Stock : IEntity
     {
         public int Id { get; set; }
         public Record Record { get; set; } = null!;
