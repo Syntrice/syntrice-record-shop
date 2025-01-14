@@ -26,7 +26,7 @@ namespace RecordShop.Controllers.API.Generic
         }
 
         [HttpPost]
-        public IActionResult Post(Genre genre)
+        public IActionResult Post(TEntity entity)
         {
             return BadRequest();
         }
@@ -38,7 +38,7 @@ namespace RecordShop.Controllers.API.Generic
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, Genre genre)
+        public IActionResult Put(int id, TEntity entity)
         {
             return BadRequest();
         }
