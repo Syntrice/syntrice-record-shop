@@ -23,6 +23,10 @@ namespace RecordShop.Tests.Controllers.API.Generic
         [Test]
         public void Get_ShouldCallAppropriateServiceMethod()
         {
+            // ARRANGE
+            var serviceResponse = new ServiceObjectResponse<List<MockEntity>>(ServiceResponseType.NotFound, "message", null);
+            _serviceMock.Setup(x => x.GetEntities()).Returns(() => serviceResponse);
+
             // ACT
             _controller.Get();
 
@@ -63,6 +67,10 @@ namespace RecordShop.Tests.Controllers.API.Generic
         [Test]
         public void GetById_ShouldCallAppropriateServiceMethod([Range(0,1)] int id)
         {
+            // ARRANGE
+            var serviceResponse = new ServiceObjectResponse<MockEntity>(ServiceResponseType.NotFound, "message", null);
+            _serviceMock.Setup(x => x.GetEntityById(id)).Returns(serviceResponse);
+
             // ACT
             _controller.GetById(id);
 
@@ -107,6 +115,8 @@ namespace RecordShop.Tests.Controllers.API.Generic
         {
             // ARRANGE
             var mockEntity = new MockEntity();
+            var serviceResponse = new ServiceObjectResponse<MockEntity>(ServiceResponseType.Success, null, mockEntity);
+            _serviceMock.Setup(x => x.InsertEntity(mockEntity)).Returns(serviceResponse);
 
             // ACT
             _controller.Post(mockEntity);
@@ -133,6 +143,10 @@ namespace RecordShop.Tests.Controllers.API.Generic
         [Test]
         public void Delete_ShouldCallAppropriateServiceMethod([Range(0, 1)] int id)
         {
+            // ARRANGE
+            var serviceResponse = new ServiceResponse(ServiceResponseType.NotFound, "message");
+            _serviceMock.Setup(x => x.DeleteEntityById(id)).Returns(serviceResponse);
+
             // ACT
             _controller.Delete(id);
 
@@ -176,7 +190,9 @@ namespace RecordShop.Tests.Controllers.API.Generic
         public void Put_ShouldCallAppropriateServiceMethod([Range(0, 1)] int id)
         {
             // ARRANGE
-            var mockEntity = new MockEntity();
+            var mockEntity = new MockEntity() { Id = id };
+            var serviceResponse = new ServiceResponse(ServiceResponseType.NotFound, "message");
+            _serviceMock.Setup(x => x.UpdateEntity(mockEntity)).Returns(serviceResponse);
 
             // ACT
             _controller.Put(id, mockEntity);
