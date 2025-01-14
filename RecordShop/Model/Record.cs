@@ -7,5 +7,7 @@
         public string Artist { get; set; } = null!;
         public int ReleaseYear { get; set; }
         public Genre Genre { get; set; } = null!;
+        public int Quantity { get; set; }
+        public int UnitPrice { get; set; }
     }
 }
