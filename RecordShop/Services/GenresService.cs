@@ -1,15 +1,14 @@
 ﻿using RecordShop.Model;
 using RecordShop.Repositories;
+using RecordShop.Repositories.Generic;
+using RecordShop.Services.Generic;
 
 namespace RecordShop.Services
 {
-    public class GenresService : IGenresService
+    public class GenresService : GenericService<Genre>, IGenresService
     {
-        private readonly IGenresRepository _genreRepository;
-
-        public GenresService(IGenresRepository genreRepository)
+        public GenresService(IGenericRepository<Genre> repository) : base(repository)
         {
-            _genreRepository = genreRepository;
         }
     }
 }

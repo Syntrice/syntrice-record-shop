@@ -1,6 +1,9 @@
-﻿namespace RecordShop.Services
+﻿using RecordShop.Model;
+using RecordShop.Services.Generic;
+
+namespace RecordShop.Services
 {
-    public interface IRecordsService
+    public interface IRecordsService : IGenericService<Record>
     {
     }
 }

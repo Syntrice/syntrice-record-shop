@@ -5,6 +5,7 @@ using RecordShop.Repositories.Generic;
 using RecordShop.Services.Generic;
 using FluentAssertions;
 using RecordShop.Services.Response;
+using RecordShop.Tests.Utility;
 
 namespace RecordShop.Tests.Services.Generic
 {
@@ -270,10 +271,5 @@ namespace RecordShop.Tests.Services.Generic
             // ASSERT
             response.ResponseType.Should().Be(ServiceResponseType.NotFound);
         }   
-    }
-
-    public class MockEntity : IEntity
-    {
-        public int Id { get; set; }
     }
 }

@@ -1,14 +1,14 @@
-﻿using RecordShop.Repositories;
+﻿using RecordShop.Model;
+using RecordShop.Repositories;
+using RecordShop.Repositories.Generic;
+using RecordShop.Services.Generic;
 
 namespace RecordShop.Services
 {
-    public class RecordsService : IRecordsService
+    public class RecordsService : GenericService<Record>, IRecordsService
     {
-        private readonly IRecordsRepository _recordRepository;
-
-        public RecordsService(IRecordsRepository recordRepository)
+        public RecordsService(IGenericRepository<Record> repository) : base(repository)
         {
-            _recordRepository = recordRepository;
         }
     }
 }
