@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RecordShop.Model;
+using RecordShop.Repository;
 
 namespace RecordShop
 {
@@ -23,6 +24,12 @@ namespace RecordShop
             }
 
             builder.Services.AddDbContext<RecordShopDbContext>(options => options.UseSqlServer(connectionString));
+        }
+
+        public static void SetupRepositories(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddScoped<IRecordRepository, RecordRepository>();
+            builder.Services.AddScoped<IGenreRepository, GenreRepository>();
         }
     }
 }
