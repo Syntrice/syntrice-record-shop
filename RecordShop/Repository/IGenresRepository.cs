@@ -2,7 +2,7 @@
 
 namespace RecordShop.Repository
 {
-    public interface IRecordRepository : IGenericRepository<Record>
+    public interface IGenresRepository : IGenericRepository<Genre>
     {
     }
 }

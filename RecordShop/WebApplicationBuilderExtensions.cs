@@ -29,8 +29,8 @@ namespace RecordShop
 
         public static void SetupRepositories(this WebApplicationBuilder builder)
         {
-            builder.Services.AddScoped<IRecordRepository, RecordRepository>();
-            builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+            builder.Services.AddScoped<IRecordsRepository, RecordsRepository>();
+            builder.Services.AddScoped<IGenresRepository, GenresRepository>();
         }
 
         public static void SetupServices(this WebApplicationBuilder builder)
