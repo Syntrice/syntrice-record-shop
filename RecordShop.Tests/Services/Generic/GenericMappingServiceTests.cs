@@ -21,11 +21,11 @@ namespace RecordShop.Tests.Services.Generic
             _mapperMock = new Mock<IMapper>();
 
             // Mock mapping
-            _mapperMock.Setup(m => m.Map<MockEntity, MockDTO>(It.IsAny<MockEntity>())).Returns((MockEntity src) => new MockDTO() { Id = src.Id});
-            _mapperMock.Setup(m => m.Map<MockDTO, MockEntity>(It.IsAny<MockDTO>())).Returns((MockDTO src) => new MockEntity() { Id = src.Id});
+            _mapperMock.Setup(m => m.Map<MockDTO>(It.IsAny<MockEntity>())).Returns((MockEntity src) => new MockDTO() { Id = src.Id });
+            _mapperMock.Setup(m => m.Map<MockEntity>(It.IsAny<MockDTO>())).Returns((MockDTO src) => new MockEntity() { Id = src.Id });
 
-            _mapperMock.Setup(m => m.Map<List<MockEntity>, List<MockDTO>> (It.IsAny<List<MockEntity>>())).Returns((List<MockEntity> src) => src.Select(x => new MockDTO() { Id = x.Id }).ToList());
-            _mapperMock.Setup(m => m.Map<List<MockDTO>, List<MockEntity>>(It.IsAny<List<MockDTO>>())).Returns((List<MockDTO> src) => src.Select(x => new MockEntity() { Id = x.Id }).ToList());
+            _mapperMock.Setup(m => m.Map<List<MockDTO>>(It.IsAny<List<MockEntity>>())).Returns((List<MockEntity> src) => src.Select(x => new MockDTO() { Id = x.Id }).ToList());
+            _mapperMock.Setup(m => m.Map<List<MockEntity>>(It.IsAny<List<MockDTO>>())).Returns((List<MockDTO> src) => src.Select(x => new MockEntity() { Id = x.Id }).ToList());
 
             _service = new GenericMappingService<MockEntity, MockDTO>(_repoMock.Object, _mapperMock.Object);
         }
