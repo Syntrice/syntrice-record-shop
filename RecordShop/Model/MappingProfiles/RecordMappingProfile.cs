@@ -10,6 +10,12 @@ namespace RecordShop.Model.MappingProfiles
             CreateMap<Record, RecordGetDTO>()
                 .ForMember(RecordDTO => RecordDTO.Genre, opt => opt.MapFrom(Record => Record.Genre.Name))
                 .ReverseMap();
+
+            CreateMap<Record, RecordInsertDTO>()
+                .ReverseMap();
+
+            CreateMap<Record, RecordUpdateDTO>()
+                .ReverseMap();
         }
     }
 }

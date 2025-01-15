@@ -8,8 +8,8 @@ namespace RecordShop.Controllers.API.Generic
     public class GenericMappingController<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> : ControllerBase
         where TEntity : class, IIdentifiable
         where TGetDTO : class, IIdentifiable
-        where TInsertDTO : class, IIdentifiable
-        where TUpdateDTO : class, IIdentifiable
+        where TInsertDTO : class
+        where TUpdateDTO : class
     {
         private readonly IGenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> _genericService;
 

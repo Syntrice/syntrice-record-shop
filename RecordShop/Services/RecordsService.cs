@@ -5,7 +5,7 @@ using RecordShop.Services.Generic;
 
 namespace RecordShop.Services
 {
-    public class RecordsService : GenericMappingService<Record, RecordGetDTO, RecordGetDTO, RecordGetDTO>, IRecordsService
+    public class RecordsService : GenericMappingService<Record, RecordGetDTO, RecordInsertDTO, RecordUpdateDTO>, IRecordsService
     {
         public RecordsService(IRecordsRepository repository, IMapper mapper) : base(repository, mapper)
         {
