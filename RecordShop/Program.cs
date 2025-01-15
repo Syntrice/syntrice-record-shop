@@ -11,6 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.SetupDbContext();
 builder.SetupRepositories();
 builder.SetupServices();
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
