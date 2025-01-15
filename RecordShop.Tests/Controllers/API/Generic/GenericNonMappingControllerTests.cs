@@ -192,13 +192,13 @@ namespace RecordShop.Tests.Controllers.API.Generic
             // ARRANGE
             var mockEntity = new MockEntity() { Id = id };
             var serviceResponse = new ServiceResponse(ServiceResponseType.NotFound, "message");
-            _serviceMock.Setup(x => x.UpdateEntity(mockEntity)).Returns(serviceResponse);
+            _serviceMock.Setup(x => x.UpdateEntity(id, mockEntity)).Returns(serviceResponse);
 
             // ACT
             _controller.Put(id, mockEntity);
 
             // ASSERT
-            _serviceMock.Verify(x => x.UpdateEntity(mockEntity), Times.Once);
+            _serviceMock.Verify(x => x.UpdateEntity(id, mockEntity), Times.Once);
         }
 
         [Test]
@@ -208,7 +208,7 @@ namespace RecordShop.Tests.Controllers.API.Generic
             int id = 1;
             var mockEntity = new MockEntity() { Id = id };
             var serviceResponse = new ServiceResponse(ServiceResponseType.NotFound, "message");
-            _serviceMock.Setup(x => x.UpdateEntity(mockEntity)).Returns(serviceResponse);
+            _serviceMock.Setup(x => x.UpdateEntity(id, mockEntity)).Returns(serviceResponse);
 
             // ACT
             var result = _controller.Put(id, mockEntity);
@@ -225,7 +225,7 @@ namespace RecordShop.Tests.Controllers.API.Generic
             int id = 1;
             var mockEntity = new MockEntity() { Id = id };
             var serviceResponse = new ServiceResponse(ServiceResponseType.Success, null);
-            _serviceMock.Setup(x => x.UpdateEntity(mockEntity)).Returns(serviceResponse);
+            _serviceMock.Setup(x => x.UpdateEntity(id, mockEntity)).Returns(serviceResponse);
 
             // ACT
             var result = _controller.Put(id, mockEntity);

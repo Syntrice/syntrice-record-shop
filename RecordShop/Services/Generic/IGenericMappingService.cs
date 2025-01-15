@@ -18,7 +18,7 @@ namespace RecordShop.Services.Generic
         public ServiceObjectResponse<TGetDTO> GetEntityById(int id);
 
         // Update
-        public ServiceResponse UpdateEntity(TUpdateDTO entity);
+        public ServiceResponse UpdateEntity(int id, TUpdateDTO entity);
 
         // Delete
         public ServiceResponse DeleteEntityById(int id);

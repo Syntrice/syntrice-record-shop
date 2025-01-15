@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using RecordShop.Model.RecordModel;
 
 namespace RecordShop.Model.MappingProfiles
 {
@@ -6,7 +7,7 @@ namespace RecordShop.Model.MappingProfiles
     {
         public RecordMappingProfile()
         {
-            CreateMap<Record, RecordDTO>()
+            CreateMap<Record, RecordGetDTO>()
                 .ForMember(RecordDTO => RecordDTO.Genre, opt => opt.MapFrom(Record => Record.Genre.Name))
                 .ReverseMap();
         }

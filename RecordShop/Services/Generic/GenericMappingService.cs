@@ -77,9 +77,11 @@ namespace RecordShop.Services.Generic
             return new ServiceObjectResponse<TInsertDTO>(ServiceResponseType.Success, null, dto);
         }
 
-        public ServiceResponse UpdateEntity(TUpdateDTO dto)
+        public ServiceResponse UpdateEntity(int id, TUpdateDTO dto)
         {
             var mapped = _mapper.Map<TEntity>(dto);
+
+            mapped.Id = id;
 
             var updatedEntity = _repository.UpdateEntity(mapped);
 

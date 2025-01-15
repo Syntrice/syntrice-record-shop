@@ -65,8 +65,9 @@ namespace RecordShop.Services.Generic
             return new ServiceObjectResponse<TEntity>(ServiceResponseType.Success, null, entity);
         }
 
-        public ServiceResponse UpdateEntity(TEntity entity)
+        public ServiceResponse UpdateEntity(int id, TEntity entity)
         {
+            entity.Id = id;
             var updatedEntity = _repository.UpdateEntity(entity);
 
             if (updatedEntity == null)

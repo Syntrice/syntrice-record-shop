@@ -1,12 +1,12 @@
-﻿namespace RecordShop.Model
+﻿namespace RecordShop.Model.RecordModel
 {
-    public class RecordDTO : IIdentifiable
+    public class RecordUpdateDTO
     {
         public int Id { get; set; }
         public string Title { get; set; } = null!;
         public string Artist { get; set; } = null!;
         public int ReleaseYear { get; set; }
-        public string Genre { get; set; } = null!;
+        public int GenreId { get; set; }
         public int Quantity { get; set; }
         public int UnitPrice { get; set; }
     }

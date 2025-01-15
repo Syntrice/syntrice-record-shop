@@ -89,7 +89,7 @@ namespace RecordShop.Controllers.API.Generic
         [HttpPut("{id}")]
         public IActionResult Put(int id, TUpdateDTO entity)
         {
-            var result = _genericService.UpdateEntity(entity);
+            var result = _genericService.UpdateEntity(id, entity);
 
             switch (result.ResponseType)
             {

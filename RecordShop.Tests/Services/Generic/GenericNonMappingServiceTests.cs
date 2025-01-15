@@ -233,11 +233,12 @@ namespace RecordShop.Tests.Services.Generic
         public void UpdateEntity_ShouldCallAppropriateRepoMethods()
         {
             // ARRANGE
-            MockEntity mockEntity = new MockEntity() { Id = 10 };
+            int id = 10;
+            MockEntity mockEntity = new MockEntity() { Id = id };
             _repoMock.Setup(x => x.UpdateEntity(mockEntity)).Returns(mockEntity);
 
             // ACT
-            _service.UpdateEntity(mockEntity);
+            _service.UpdateEntity(id, mockEntity);
 
             // ASSERT
             _repoMock.Verify(x => x.UpdateEntity(mockEntity), Times.Once);
@@ -248,11 +249,12 @@ namespace RecordShop.Tests.Services.Generic
         public void UpdateEntity_WhenEntityExists_ShouldReturnSuccess()
         {
             // ARRANGE
-            var mockEntity = new MockEntity() { Id = 1 };
+            int id = 10;
+            var mockEntity = new MockEntity() { Id = id };
             _repoMock.Setup(x => x.UpdateEntity(mockEntity)).Returns(mockEntity);
 
             // ACT
-            var response = _service.UpdateEntity(mockEntity);
+            var response = _service.UpdateEntity(id, mockEntity);
 
             // ASSERT
             response.ResponseType.Should().Be(ServiceResponseType.Success);
@@ -262,11 +264,12 @@ namespace RecordShop.Tests.Services.Generic
         public void UpdateEntity_WhenEntityDoesNotExist_ShouldReturnNotFound()
         {
             // ARRANGE
-            var mockEntity = new MockEntity() { Id = 1 };
+            int id = 10;
+            var mockEntity = new MockEntity() { Id = id };
             _repoMock.Setup(x => x.UpdateEntity(mockEntity)).Returns(() => null);
 
             // ACT
-            var response = _service.UpdateEntity(mockEntity);
+            var response = _service.UpdateEntity(id, mockEntity);
 
             // ASSERT
             response.ResponseType.Should().Be(ServiceResponseType.NotFound);
