@@ -2,7 +2,6 @@
 using RecordShop.Controllers.API.Generic;
 using RecordShop.Model.GenreModel;
 using RecordShop.Services;
-using RecordShop.Services.Generic;
 
 namespace RecordShop.Controllers.API
 {
