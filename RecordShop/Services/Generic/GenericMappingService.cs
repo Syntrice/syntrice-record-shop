@@ -9,8 +9,8 @@ namespace RecordShop.Services.Generic
     public class GenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> : IGenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>
         where TEntity : class, IIdentifiable
         where TGetDTO : class, IIdentifiable
-        where TInsertDTO : class, IIdentifiable
-        where TUpdateDTO : class, IIdentifiable
+        where TInsertDTO : class
+        where TUpdateDTO : class
     {
         private readonly IGenericRepository<TEntity> _repository;
         private readonly IMapper _mapper;
@@ -64,7 +64,7 @@ namespace RecordShop.Services.Generic
             return new ServiceObjectResponse<TGetDTO>(ServiceResponseType.Success, null, mapped);
         }
 
-        public ServiceObjectResponse<TInsertDTO> InsertEntity(TInsertDTO dto)
+        public ServiceObjectResponse<int> InsertEntity(TInsertDTO dto)
         {
             var mapped = _mapper.Map<TEntity>(dto);
 
@@ -72,9 +72,9 @@ namespace RecordShop.Services.Generic
 
             _repository.Save();
 
-            dto.Id = idFunction.Invoke(); // update id from function, after first saving db
+            int id = idFunction.Invoke(); // update id from function, after first saving db
 
-            return new ServiceObjectResponse<TInsertDTO>(ServiceResponseType.Success, null, dto);
+            return new ServiceObjectResponse<int>(ServiceResponseType.Success, null, id);
         }
 
         public ServiceResponse UpdateEntity(int id, TUpdateDTO dto)
@@ -87,7 +87,7 @@ namespace RecordShop.Services.Generic
 
             if (updatedEntity == null)
             {
-                return new ServiceResponse(ServiceResponseType.NotFound, $"{typeof(TEntity).Name} with id {dto.Id} not found in repository.");
+                return new ServiceResponse(ServiceResponseType.NotFound, $"{typeof(TEntity).Name} with id {id} not found in repository.");
             }
 
             _repository.Save();

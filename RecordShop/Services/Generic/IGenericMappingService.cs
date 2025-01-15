@@ -6,11 +6,11 @@ namespace RecordShop.Services.Generic
     public interface IGenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>
         where TEntity : class, IIdentifiable
         where TGetDTO : class, IIdentifiable
-        where TInsertDTO : class, IIdentifiable
-        where TUpdateDTO : class, IIdentifiable
+        where TInsertDTO : class
+        where TUpdateDTO : class
     {
         // Create
-        public ServiceObjectResponse<TInsertDTO> InsertEntity(TInsertDTO entity);
+        public ServiceObjectResponse<int> InsertEntity(TInsertDTO entity);
 
         // Read
         public ServiceObjectResponse<List<TGetDTO>> GetEntities();

@@ -58,13 +58,7 @@ namespace RecordShop.Controllers.API.Generic
             switch (result.ResponseType)
             {
                 case ServiceResponseType.Success:
-
-                    if (result.Value == null)
-                    {
-                        return Created();
-                    }
-
-                    return Created(result.Value.Id.ToString(), result.Value);
+                    return Created(result.Value.ToString(), entity);
                 default:
                     return BadRequest();
             }

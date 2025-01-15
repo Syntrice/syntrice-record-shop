@@ -54,15 +54,15 @@ namespace RecordShop.Services.Generic
             return new ServiceObjectResponse<TEntity>(ServiceResponseType.Success, null, entity);
         }
 
-        public ServiceObjectResponse<TEntity> InsertEntity(TEntity entity)
+        public ServiceObjectResponse<int> InsertEntity(TEntity entity)
         {
             var idFunction = _repository.InsertEntity(entity);
 
             _repository.Save();
 
-            entity.Id = idFunction.Invoke(); // update id from function, after first saving db
+            int id = idFunction.Invoke(); // update id from function, after first saving db
 
-            return new ServiceObjectResponse<TEntity>(ServiceResponseType.Success, null, entity);
+            return new ServiceObjectResponse<int>(ServiceResponseType.Success, null, id);
         }
 
         public ServiceResponse UpdateEntity(int id, TEntity entity)

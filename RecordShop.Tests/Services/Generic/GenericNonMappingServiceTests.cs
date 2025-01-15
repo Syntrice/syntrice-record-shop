@@ -200,7 +200,7 @@ namespace RecordShop.Tests.Services.Generic
         }
 
         [Test]
-        public void InsertEntity_ShouldReturnInsertedEntity_WithUpdatedId([Range(0, 10, 2)] int newId)
+        public void InsertEntity_ShouldReturnNewEntityId([Range(0, 10, 2)] int newId)
         {
             // ARRANGE
             int id = 1;
@@ -212,7 +212,7 @@ namespace RecordShop.Tests.Services.Generic
             var response = _service.InsertEntity(mockEntity);
 
             // ASSERT
-            response.Value.Should().BeEquivalentTo(expectedEntity);
+            response.Value.Should().Be(newId);
         }
 
         [Test]

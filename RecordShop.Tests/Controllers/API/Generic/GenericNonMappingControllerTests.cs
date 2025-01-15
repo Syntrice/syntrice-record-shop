@@ -115,7 +115,7 @@ namespace RecordShop.Tests.Controllers.API.Generic
         {
             // ARRANGE
             var mockEntity = new MockEntity();
-            var serviceResponse = new ServiceObjectResponse<MockEntity>(ServiceResponseType.Success, null, mockEntity);
+            var serviceResponse = new ServiceObjectResponse<int>(ServiceResponseType.Success, null, mockEntity.Id);
             _serviceMock.Setup(x => x.InsertEntity(mockEntity)).Returns(serviceResponse);
 
             // ACT
@@ -130,7 +130,7 @@ namespace RecordShop.Tests.Controllers.API.Generic
         {
             // ARRANGE
             var mockEntity = new MockEntity();
-            var serviceResponse = new ServiceObjectResponse<MockEntity>(ServiceResponseType.Success, null, mockEntity);
+            var serviceResponse = new ServiceObjectResponse<int>(ServiceResponseType.Success, null, mockEntity.Id);
             _serviceMock.Setup(x => x.InsertEntity(mockEntity)).Returns(serviceResponse);
 
             // ACT
