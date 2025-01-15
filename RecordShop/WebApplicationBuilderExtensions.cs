@@ -36,12 +36,14 @@ namespace RecordShop
         {
             builder.Services.AddScoped<IRecordsRepository, RecordsRepository>();
             builder.Services.AddScoped<IGenresRepository, GenresRepository>();
+            builder.Services.AddScoped<IArtistsRepository, ArtistsRepository>();
         }
 
         public static void SetupServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddScoped<IGenresService, GenresService>();
             builder.Services.AddScoped<IRecordsService, RecordsService>();
+            builder.Services.AddScoped<IArtistsService, ArtistsService>();
         }
     }
 }
