@@ -8,16 +8,16 @@ using RecordShop.Tests.Utility;
 
 namespace RecordShop.Tests.Controllers.API.Generic
 {
-    public class GenericControllerTests
+    public class GenericNonMappingControllerTests
     {
-        private Mock<IGenericService<MockEntity>> _serviceMock;
-        private GenericController<MockEntity> _controller;
+        private Mock<IGenericNonMappingService<MockEntity>> _serviceMock;
+        private GenericNonMappingController<MockEntity> _controller;
 
         [SetUp]
         public void Init()
         {
-            _serviceMock = new Mock<IGenericService<MockEntity>>();
-            _controller = new GenericController<MockEntity>(_serviceMock.Object);
+            _serviceMock = new Mock<IGenericNonMappingService<MockEntity>>();
+            _controller = new GenericNonMappingController<MockEntity>(_serviceMock.Object);
         }
 
         [Test]

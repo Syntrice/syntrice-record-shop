@@ -12,7 +12,7 @@ namespace RecordShop.Tests.Services.Generic
     {
         private Mock<IGenericRepository<MockEntity>> _repoMock;
         private Mock<IMapper> _mapperMock;
-        private GenericMappingService<MockEntity, MockDTO> _service;
+        private GenericMappingService<MockEntity, MockDTO, MockDTO, MockDTO> _service;
 
         [SetUp]
         public void Init()
@@ -27,7 +27,7 @@ namespace RecordShop.Tests.Services.Generic
             _mapperMock.Setup(m => m.Map<List<MockDTO>>(It.IsAny<List<MockEntity>>())).Returns((List<MockEntity> src) => src.Select(x => new MockDTO() { Id = x.Id }).ToList());
             _mapperMock.Setup(m => m.Map<List<MockEntity>>(It.IsAny<List<MockDTO>>())).Returns((List<MockDTO> src) => src.Select(x => new MockEntity() { Id = x.Id }).ToList());
 
-            _service = new GenericMappingService<MockEntity, MockDTO>(_repoMock.Object, _mapperMock.Object);
+            _service = new GenericMappingService<MockEntity, MockDTO, MockDTO, MockDTO>(_repoMock.Object, _mapperMock.Object);
         }
 
         [Test]

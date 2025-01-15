@@ -6,7 +6,11 @@ using RecordShop.Services.Response;
 
 namespace RecordShop.Services.Generic
 {
-    public class GenericMappingService<TEntity, TDTO> : IGenericMappingService<TEntity, TDTO> where TEntity : class, IIdentifiable where TDTO : class, IIdentifiable
+    public class GenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> : IGenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>
+        where TEntity : class, IIdentifiable
+        where TGetDTO : class, IIdentifiable
+        where TInsertDTO : class, IIdentifiable
+        where TUpdateDTO : class, IIdentifiable
     {
         private readonly IGenericRepository<TEntity> _repository;
         private readonly IMapper _mapper;
@@ -31,36 +35,36 @@ namespace RecordShop.Services.Generic
             return new ServiceResponse(ServiceResponseType.Success, null);
         }
 
-        public ServiceObjectResponse<List<TDTO>> GetEntities()
+        public ServiceObjectResponse<List<TGetDTO>> GetEntities()
         {
             var entities = _repository.GetEntities().ToList();
 
             if (entities.IsNullOrEmpty())
             {
-                return new ServiceObjectResponse<List<TDTO>>(ServiceResponseType.NotFound, $"No {typeof(TEntity).Name} entities found in repository.", null);
+                return new ServiceObjectResponse<List<TGetDTO>>(ServiceResponseType.NotFound, $"No {typeof(TEntity).Name} entities found in repository.", null);
             }
 
-            var mapped = _mapper.Map<List<TDTO>>(entities);
+            var mapped = _mapper.Map<List<TGetDTO>>(entities);
 
-            return new ServiceObjectResponse<List<TDTO>>(ServiceResponseType.Success, null, mapped);
+            return new ServiceObjectResponse<List<TGetDTO>>(ServiceResponseType.Success, null, mapped);
 
         }
 
-        public ServiceObjectResponse<TDTO> GetEntityById(int id)
+        public ServiceObjectResponse<TGetDTO> GetEntityById(int id)
         {
             var entity = _repository.GetEntityById(id);
 
             if (entity == null)
             {
-                return new ServiceObjectResponse<TDTO>(ServiceResponseType.NotFound, $"{typeof(TEntity).Name} with id {id} not found in repository.", null);
+                return new ServiceObjectResponse<TGetDTO>(ServiceResponseType.NotFound, $"{typeof(TEntity).Name} with id {id} not found in repository.", null);
             }
 
-            var mapped = _mapper.Map<TDTO>(entity);
+            var mapped = _mapper.Map<TGetDTO>(entity);
 
-            return new ServiceObjectResponse<TDTO>(ServiceResponseType.Success, null, mapped);
+            return new ServiceObjectResponse<TGetDTO>(ServiceResponseType.Success, null, mapped);
         }
 
-        public ServiceObjectResponse<TDTO> InsertEntity(TDTO dto)
+        public ServiceObjectResponse<TInsertDTO> InsertEntity(TInsertDTO dto)
         {
             var mapped = _mapper.Map<TEntity>(dto);
 
@@ -70,10 +74,10 @@ namespace RecordShop.Services.Generic
 
             dto.Id = idFunction.Invoke(); // update id from function, after first saving db
 
-            return new ServiceObjectResponse<TDTO>(ServiceResponseType.Success, null, dto);
+            return new ServiceObjectResponse<TInsertDTO>(ServiceResponseType.Success, null, dto);
         }
 
-        public ServiceResponse UpdateEntity(TDTO dto)
+        public ServiceResponse UpdateEntity(TUpdateDTO dto)
         {
             var mapped = _mapper.Map<TEntity>(dto);
 

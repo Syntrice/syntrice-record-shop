@@ -9,16 +9,16 @@ using RecordShop.Tests.Utility;
 
 namespace RecordShop.Tests.Services.Generic
 {
-    public class GenericServiceTests
+    public class GenericNonMappingServiceTests
     {
         private Mock<IGenericRepository<MockEntity>> _repoMock;
-        private GenericService<MockEntity> _service;
+        private GenericNonMappingService<MockEntity> _service;
 
         [SetUp]
         public void Init()
         {
             _repoMock = new Mock<IGenericRepository<MockEntity>>();
-            _service = new GenericService<MockEntity>(_repoMock.Object);
+            _service = new GenericNonMappingService<MockEntity>(_repoMock.Object);
         }
 
         [Test]
