@@ -8,7 +8,7 @@ namespace RecordShop.Controllers.API
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GenresController : GenericController<Genre>
+    public class GenresController : GenericNonMappingController<Genre>
     {
         public GenresController(IGenresService genresService) : base(genresService) { }
     }

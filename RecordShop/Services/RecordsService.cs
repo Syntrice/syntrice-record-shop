@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using RecordShop.Model;
+using RecordShop.Model.RecordModel;
 using RecordShop.Repositories;
 using RecordShop.Services.Generic;
 
 namespace RecordShop.Services
 {
-    public class RecordsService : GenericMappingService<Record, RecordDTO>, IRecordsService
+    public class RecordsService : GenericMappingService<Record, RecordGetDTO, RecordInsertDTO, RecordUpdateDTO>, IRecordsService
     {
         public RecordsService(IRecordsRepository repository, IMapper mapper) : base(repository, mapper)
         {

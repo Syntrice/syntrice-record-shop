@@ -8,16 +8,16 @@ using RecordShop.Tests.Utility;
 
 namespace RecordShop.Tests.Controllers.API.Generic
 {
-    public class GenericControllerTests
+    public class GenericNonMappingControllerTests
     {
-        private Mock<IGenericService<MockEntity>> _serviceMock;
-        private GenericController<MockEntity> _controller;
+        private Mock<IGenericNonMappingService<MockEntity>> _serviceMock;
+        private GenericNonMappingController<MockEntity> _controller;
 
         [SetUp]
         public void Init()
         {
-            _serviceMock = new Mock<IGenericService<MockEntity>>();
-            _controller = new GenericController<MockEntity>(_serviceMock.Object);
+            _serviceMock = new Mock<IGenericNonMappingService<MockEntity>>();
+            _controller = new GenericNonMappingController<MockEntity>(_serviceMock.Object);
         }
 
         [Test]
@@ -115,7 +115,7 @@ namespace RecordShop.Tests.Controllers.API.Generic
         {
             // ARRANGE
             var mockEntity = new MockEntity();
-            var serviceResponse = new ServiceObjectResponse<MockEntity>(ServiceResponseType.Success, null, mockEntity);
+            var serviceResponse = new ServiceObjectResponse<int>(ServiceResponseType.Success, null, mockEntity.Id);
             _serviceMock.Setup(x => x.InsertEntity(mockEntity)).Returns(serviceResponse);
 
             // ACT
@@ -130,7 +130,7 @@ namespace RecordShop.Tests.Controllers.API.Generic
         {
             // ARRANGE
             var mockEntity = new MockEntity();
-            var serviceResponse = new ServiceObjectResponse<MockEntity>(ServiceResponseType.Success, null, mockEntity);
+            var serviceResponse = new ServiceObjectResponse<int>(ServiceResponseType.Success, null, mockEntity.Id);
             _serviceMock.Setup(x => x.InsertEntity(mockEntity)).Returns(serviceResponse);
 
             // ACT
@@ -192,13 +192,13 @@ namespace RecordShop.Tests.Controllers.API.Generic
             // ARRANGE
             var mockEntity = new MockEntity() { Id = id };
             var serviceResponse = new ServiceResponse(ServiceResponseType.NotFound, "message");
-            _serviceMock.Setup(x => x.UpdateEntity(mockEntity)).Returns(serviceResponse);
+            _serviceMock.Setup(x => x.UpdateEntity(id, mockEntity)).Returns(serviceResponse);
 
             // ACT
             _controller.Put(id, mockEntity);
 
             // ASSERT
-            _serviceMock.Verify(x => x.UpdateEntity(mockEntity), Times.Once);
+            _serviceMock.Verify(x => x.UpdateEntity(id, mockEntity), Times.Once);
         }
 
         [Test]
@@ -208,7 +208,7 @@ namespace RecordShop.Tests.Controllers.API.Generic
             int id = 1;
             var mockEntity = new MockEntity() { Id = id };
             var serviceResponse = new ServiceResponse(ServiceResponseType.NotFound, "message");
-            _serviceMock.Setup(x => x.UpdateEntity(mockEntity)).Returns(serviceResponse);
+            _serviceMock.Setup(x => x.UpdateEntity(id, mockEntity)).Returns(serviceResponse);
 
             // ACT
             var result = _controller.Put(id, mockEntity);
@@ -225,7 +225,7 @@ namespace RecordShop.Tests.Controllers.API.Generic
             int id = 1;
             var mockEntity = new MockEntity() { Id = id };
             var serviceResponse = new ServiceResponse(ServiceResponseType.Success, null);
-            _serviceMock.Setup(x => x.UpdateEntity(mockEntity)).Returns(serviceResponse);
+            _serviceMock.Setup(x => x.UpdateEntity(id, mockEntity)).Returns(serviceResponse);
 
             // ACT
             var result = _controller.Put(id, mockEntity);
