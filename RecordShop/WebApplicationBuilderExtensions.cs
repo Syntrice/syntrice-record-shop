@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RecordShop.Model;
+using RecordShop.Model.Database;
 using RecordShop.Repositories;
 using RecordShop.Services;
 
@@ -24,7 +24,12 @@ namespace RecordShop
                 throw new InvalidOperationException("DefaultConnection string not found in configuration. Please provide a connections string, or set UseInMemoryDatabase to true.");
             }
 
-            builder.Services.AddDbContext<RecordShopDbContext>(options => options.UseSqlServer(connectionString));
+            builder.Services.AddDbContext<RecordShopDbContext>(options =>
+            {
+                options.UseLazyLoadingProxies();
+                options.UseSqlServer(connectionString);
+            }
+            );
         }
 
         public static void SetupRepositories(this WebApplicationBuilder builder)

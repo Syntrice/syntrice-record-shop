@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RecordShop.Model;
+using RecordShop.Model.Database;
 
 namespace RecordShop.Repositories.Generic
 {
