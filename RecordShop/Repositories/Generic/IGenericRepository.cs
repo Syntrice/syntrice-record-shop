@@ -2,7 +2,7 @@
 
 namespace RecordShop.Repositories.Generic
 {
-    public interface IGenericRepository<TEntity> where TEntity : class, IEntity
+    public interface IGenericRepository<TEntity> where TEntity : class, IIdentifiable
     {
         // Create
         public Func<int> InsertEntity(TEntity entity);

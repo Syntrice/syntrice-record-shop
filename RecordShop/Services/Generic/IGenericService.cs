@@ -3,7 +3,7 @@ using RecordShop.Services.Response;
 
 namespace RecordShop.Services.Generic
 {
-    public interface IGenericService<TEntity> where TEntity : class, IEntity
+    public interface IGenericService<TEntity> where TEntity : class, IIdentifiable
     {
         // Create
         public ServiceObjectResponse<TEntity> InsertEntity(TEntity entity);

@@ -1,6 +1,6 @@
 ﻿namespace RecordShop.Model
 {
-    public class Record : IEntity
+    public class Record : IIdentifiable
     {
         public int Id { get; set; }
         public string Title { get; set; } = null!;

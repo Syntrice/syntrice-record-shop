@@ -5,7 +5,7 @@ using RecordShop.Services.Response;
 
 namespace RecordShop.Controllers.API.Generic
 {
-    public class GenericController<TEntity> : ControllerBase where TEntity : class, IEntity
+    public class GenericController<TEntity> : ControllerBase where TEntity : class, IIdentifiable
     {
         private readonly IGenericService<TEntity> _genericService;
 
