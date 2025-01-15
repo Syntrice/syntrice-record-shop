@@ -3,18 +3,18 @@ using RecordShop.Services.Response;
 
 namespace RecordShop.Services.Generic
 {
-    public interface IGenericService<TEntity> where TEntity : class, IEntity
+    public interface IGenericService<TIdentifiable> where TIdentifiable : class, IIdentifiable
     {
         // Create
-        public ServiceObjectResponse<TEntity> InsertEntity(TEntity entity);
+        public ServiceObjectResponse<TIdentifiable> InsertEntity(TIdentifiable entity);
 
         // Read
-        public ServiceObjectResponse<List<TEntity>> GetEntities();
+        public ServiceObjectResponse<List<TIdentifiable>> GetEntities();
 
-        public ServiceObjectResponse<TEntity> GetEntityById(int id);
+        public ServiceObjectResponse<TIdentifiable> GetEntityById(int id);
 
         // Update
-        public ServiceResponse UpdateEntity(TEntity entity);
+        public ServiceResponse UpdateEntity(TIdentifiable entity);
 
         // Delete
         public ServiceResponse DeleteEntityById(int id);

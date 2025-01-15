@@ -3,7 +3,7 @@ using RecordShop.Model;
 
 namespace RecordShop.Repositories.Generic
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IEntity
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IIdentifiable
     {
         private readonly RecordShopDbContext _dbContext;
 

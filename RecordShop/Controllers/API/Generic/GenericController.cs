@@ -5,11 +5,11 @@ using RecordShop.Services.Response;
 
 namespace RecordShop.Controllers.API.Generic
 {
-    public class GenericController<TEntity> : ControllerBase where TEntity : class, IEntity
+    public class GenericController<TIdentifiable> : ControllerBase where TIdentifiable : class, IIdentifiable
     {
-        private readonly IGenericService<TEntity> _genericService;
+        private readonly IGenericService<TIdentifiable> _genericService;
 
-        public GenericController(IGenericService<TEntity> genericService)
+        public GenericController(IGenericService<TIdentifiable> genericService)
         {
             _genericService = genericService;
         }
@@ -47,7 +47,7 @@ namespace RecordShop.Controllers.API.Generic
         }
 
         [HttpPost]
-        public IActionResult Post(TEntity entity)
+        public IActionResult Post(TIdentifiable entity)
         {
             var result = _genericService.InsertEntity(entity);
 
@@ -83,7 +83,7 @@ namespace RecordShop.Controllers.API.Generic
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, TEntity entity)
+        public IActionResult Put(int id, TIdentifiable entity)
         {
             var result = _genericService.UpdateEntity(entity);
 
