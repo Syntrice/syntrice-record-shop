@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RecordShop.Model.GenreModel;
 using RecordShop.Model.RecordModel;
 
-namespace RecordShop.Model
+namespace RecordShop.Model.Database
 {
     public class RecordShopDbContext : DbContext
     {
@@ -10,4 +11,5 @@ namespace RecordShop.Model
 
         public RecordShopDbContext(DbContextOptions<RecordShopDbContext> options) : base(options) { }
     }
+
 }

@@ -1,9 +1,10 @@
-﻿using RecordShop.Model;
+﻿using RecordShop.Model.GenreModel;
 using RecordShop.Services.Generic;
 
 namespace RecordShop.Services
 {
-    public interface IGenresService : IGenericNonMappingService<Genre>
+    public interface IGenresService : IGenericMappingService<Genre, GenreGetDTO, GenreInsertDTO, GenreUpdateDTO> 
+
     {
     }
 }

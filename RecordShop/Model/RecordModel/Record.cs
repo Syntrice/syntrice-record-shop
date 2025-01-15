@@ -1,7 +1,12 @@
-﻿namespace RecordShop.Model.RecordModel
+﻿using RecordShop.Model.GenreModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace RecordShop.Model.RecordModel
 {
     public class Record : IIdentifiable
     {
+        [Key]
         public int Id { get; set; }
         public string Title { get; set; } = null!;
         public string Artist { get; set; } = null!;
@@ -11,6 +16,6 @@
 
         // Foreign Mappings
         public int GenreId { get; set; }
-        public Genre Genre { get; set; } = null!;
+        public virtual Genre Genre { get; set; } = null!;
     }
 }

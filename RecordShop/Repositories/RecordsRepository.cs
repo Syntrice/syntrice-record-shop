@@ -1,4 +1,4 @@
-﻿using RecordShop.Model;
+﻿using RecordShop.Model.Database;
 using RecordShop.Model.RecordModel;
 using RecordShop.Repositories.Generic;
 
