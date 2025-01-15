@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using RecordShop.Model.GenreModel;
-using RecordShop.Model.RecordModel;
 
 namespace RecordShop.Model.MappingProfiles
 {
