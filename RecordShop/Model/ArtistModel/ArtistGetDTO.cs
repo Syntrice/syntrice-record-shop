@@ -1,6 +1,6 @@
 ﻿namespace RecordShop.Model.ArtistModel
 {
-    public class ArtistGetDTO
+    public class ArtistGetDTO : IIdentifiable
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
