@@ -1,6 +1,6 @@
 ﻿namespace RecordShop.Model
 {
-    public interface IIdentifiable
+    public interface IEntity
     {
         public int Id { get; set; }
     }

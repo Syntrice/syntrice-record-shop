@@ -6,10 +6,10 @@ using RecordShop.Services.Response;
 namespace RecordShop.Controllers.API.Generic
 {
     public class GenericMappingController<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> : ControllerBase
-        where TEntity : class, IIdentifiable
-        where TGetDTO : class, IIdentifiable
-        where TInsertDTO : class
-        where TUpdateDTO : class
+        where TEntity : class, IEntity
+        where TGetDTO : class, IGetDTO
+        where TInsertDTO : class, IInsertDTO
+        where TUpdateDTO : class, IUpdateDTO
     {
         private readonly IGenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> _genericService;
 

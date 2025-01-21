@@ -2,7 +2,7 @@
 
 namespace RecordShop.Model.GenreModel
 {
-    public class GenreUpdateDTO
+    public class GenreUpdateDTO : IUpdateDTO
     {
         public string Name { get; set; } = null!;
     }

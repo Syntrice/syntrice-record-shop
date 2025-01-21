@@ -1,6 +1,6 @@
 ﻿namespace RecordShop.Model.RecordModel
 {
-    public class RecordGetDTO : IIdentifiable
+    public class RecordGetDTO : IGetDTO
     {
         public int Id { get; set; }
         public string Title { get; set; } = null!;

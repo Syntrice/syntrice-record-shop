@@ -1,6 +1,6 @@
 ﻿namespace RecordShop.Model.RecordModel
 {
-    public class RecordInsertDTO
+    public class RecordInsertDTO : IInsertDTO
     {
         public string Title { get; set; } = null!;
         public int ArtistId { get; set; }

@@ -2,7 +2,7 @@
 
 namespace RecordShop.Model.GenreModel
 {
-    public class GenreInsertDTO
+    public class GenreInsertDTO : IInsertDTO
     {
         public string Name { get; set; } = null!;
     }

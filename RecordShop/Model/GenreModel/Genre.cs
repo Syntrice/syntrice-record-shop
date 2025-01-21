@@ -2,7 +2,7 @@
 
 namespace RecordShop.Model.GenreModel
 {
-    public class Genre : IIdentifiable
+    public class Genre : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;

@@ -7,10 +7,10 @@ using RecordShop.Services.Response;
 namespace RecordShop.Services.Generic
 {
     public class GenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> : IGenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>
-        where TEntity : class, IIdentifiable
-        where TGetDTO : class, IIdentifiable
-        where TInsertDTO : class
-        where TUpdateDTO : class
+        where TEntity : class, IEntity
+        where TGetDTO : class, IGetDTO
+        where TInsertDTO : class, IInsertDTO
+        where TUpdateDTO : class, IUpdateDTO
     {
         private readonly IGenericRepository<TEntity> _repository;
         private readonly IMapper _mapper;

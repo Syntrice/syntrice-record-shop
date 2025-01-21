@@ -5,8 +5,8 @@ using RecordShop.Services.Response;
 
 namespace RecordShop.Services.Generic
 {
-    public class GenericNonMappingService<TEntity> : IGenericMappingService<TEntity, TEntity, TEntity, TEntity> 
-        where TEntity : class, IIdentifiable
+    public class GenericNonMappingService<TEntity> : IGenericNonMappingService<TEntity>
+        where TEntity : class, IEntity
     {
         private readonly IGenericRepository<TEntity> _repository;
 
