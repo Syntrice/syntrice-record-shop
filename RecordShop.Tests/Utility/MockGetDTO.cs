@@ -2,7 +2,7 @@
 
 namespace RecordShop.Tests.Utility
 {
-    public class MockEntity : IEntity
+    internal class MockGetDTO : IGetDTO
     {
         public int Id { get; set; }
     }

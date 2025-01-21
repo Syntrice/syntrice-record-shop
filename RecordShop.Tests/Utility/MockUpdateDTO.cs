@@ -2,8 +2,7 @@
 
 namespace RecordShop.Tests.Utility
 {
-    internal class MockDTO : IIdentifiable
+    internal class MockUpdateDTO : IUpdateDTO
     {
-        public int Id { get; set; }
     }
 }

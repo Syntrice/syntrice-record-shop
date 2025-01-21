@@ -2,8 +2,7 @@
 
 namespace RecordShop.Tests.Utility
 {
-    public class MockEntity : IEntity
+    internal class MockInsertDTO : IInsertDTO
     {
-        public int Id { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using Moq;
+using RecordShop.Model;
 using RecordShop.Repositories.Generic;
 using RecordShop.Services.Generic;
 using RecordShop.Services.Response;
@@ -8,33 +9,29 @@ using RecordShop.Tests.Utility;
 
 namespace RecordShop.Tests.Services.Generic
 {
-    public class GenericMappingServiceTests
+    public abstract class GenericMappingServiceTests<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> 
+        where TEntity : class, IEntity, new()
+        where TGetDTO : class, IGetDTO, new()
+        where TInsertDTO : class, IInsertDTO, new()
+        where TUpdateDTO : class, IUpdateDTO, new()
     {
-        private Mock<IGenericRepository<MockEntity>> _repoMock;
-        private Mock<IMapper> _mapperMock;
-        private GenericMappingService<MockEntity, MockDTO, MockDTO, MockDTO> _service;
+        private Mock<IGenericRepository<TEntity>> _repoMock = null!;
+        private Mock<IMapper> _mapperMock = null!;
+        private IGenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> _service = null!;
 
         [SetUp]
-        public void Init()
+        protected virtual void Init()
         {
-            _repoMock = new Mock<IGenericRepository<MockEntity>>();
+            _repoMock = new Mock<IGenericRepository<TEntity>>();
             _mapperMock = new Mock<IMapper>();
-
-            // Mock mapping
-            _mapperMock.Setup(m => m.Map<MockDTO>(It.IsAny<MockEntity>())).Returns((MockEntity src) => new MockDTO() { Id = src.Id });
-            _mapperMock.Setup(m => m.Map<MockEntity>(It.IsAny<MockDTO>())).Returns((MockDTO src) => new MockEntity() { Id = src.Id });
-
-            _mapperMock.Setup(m => m.Map<List<MockDTO>>(It.IsAny<List<MockEntity>>())).Returns((List<MockEntity> src) => src.Select(x => new MockDTO() { Id = x.Id }).ToList());
-            _mapperMock.Setup(m => m.Map<List<MockEntity>>(It.IsAny<List<MockDTO>>())).Returns((List<MockDTO> src) => src.Select(x => new MockEntity() { Id = x.Id }).ToList());
-
-            _service = new GenericMappingService<MockEntity, MockDTO, MockDTO, MockDTO>(_repoMock.Object, _mapperMock.Object);
+            _service = new GenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>(_repoMock.Object, _mapperMock.Object);
         }
 
         [Test]
-        public void DeleteEntityById_ShouldCallAppropriateRepoMethods([Range(0, 10, 2)] int id)
+        public virtual void DeleteEntityById_ShouldCallAppropriateRepoMethods([Range(0, 10, 2)] int id)
         {
             // ARRANGE
-            var mockEntity = new MockEntity() { Id = id };
+            var mockEntity = new TEntity() { Id = id };
             _repoMock.Setup(x => x.DeleteEntityById(id)).Returns(mockEntity);
 
             // ACT
@@ -46,11 +43,11 @@ namespace RecordShop.Tests.Services.Generic
         }
 
         [Test]
-        public void DeleteEntityById_WhenEntityFound_ShouldReturnSuccess()
+        public virtual void DeleteEntityById_WhenEntityFound_ShouldReturnSuccess()
         {
             // ARRANGE
             int id = 1;
-            var mockEntity = new MockEntity() { Id = id };
+            var mockEntity = new TEntity() { Id = id };
             _repoMock.Setup(x => x.DeleteEntityById(id)).Returns(mockEntity);
 
             // ACT
@@ -61,7 +58,7 @@ namespace RecordShop.Tests.Services.Generic
         }
 
         [Test]
-        public void DeleteEntityById_WhenEntityNotFound_ShouldReturnNotFound()
+        public virtual void DeleteEntityById_WhenEntityNotFound_ShouldReturnNotFound()
         {
             // ARRANGE
             int id = 1;
@@ -75,7 +72,7 @@ namespace RecordShop.Tests.Services.Generic
         }
 
         [Test]
-        public void GetEntities_ShouldCallAppropriateRepoMethods()
+        public virtual void GetEntities_ShouldCallAppropriateRepoMethods()
         {
             // ACT
             _service.GetEntities();
@@ -85,14 +82,14 @@ namespace RecordShop.Tests.Services.Generic
         }
 
         [Test]
-        public void GetEntities_WhenEntitiesExist_ShouldCallMapMethodOnEntities()
+        public virtual void GetEntities_WhenEntitiesExist_ShouldCallMapMethodOnEntities()
         {
             // ARRANGE
-            var mockEntities = new List<MockEntity>()
+            var mockEntities = new List<TEntity>()
             {
-                new MockEntity() { Id = 1 },
-                new MockEntity() { Id = 2 },
-                new MockEntity() { Id = 3 }
+                new TEntity() { Id = 1 },
+                new TEntity() { Id = 2 },
+                new TEntity() { Id = 3 }
             };
 
             _repoMock.Setup(x => x.GetEntities()).Returns(mockEntities);
@@ -101,19 +98,19 @@ namespace RecordShop.Tests.Services.Generic
             _service.GetEntities();
 
             // ASSERT
-            _mapperMock.Verify(x => x.Map<List<MockDTO>>(mockEntities), Times.Once);
+            _mapperMock.Verify(x => x.Map<List<TGetDTO>>(mockEntities), Times.Once);
         }
 
 
         [Test]
-        public void GetEntities_WhenEntitiesExist_ShouldReturnSuccess()
+        public virtual void GetEntities_WhenEntitiesExist_ShouldReturnSuccess()
         {
             // ARRANGE
-            var mockEntities = new List<MockEntity>()
+            var mockEntities = new List<TEntity>()
             {
-                new MockEntity() { Id = 1 },
-                new MockEntity() { Id = 2 },
-                new MockEntity() { Id = 3 }
+                new TEntity() { Id = 1 },
+                new TEntity() { Id = 2 },
+                new TEntity() { Id = 3 }
             };
 
             _repoMock.Setup(x => x.GetEntities()).Returns(mockEntities);
@@ -126,25 +123,26 @@ namespace RecordShop.Tests.Services.Generic
         }
 
         [Test]
-        public void GetEntities_WhenEntitiesExist_ShouldReturnMappedEntities()
+        public virtual void GetEntities_WhenEntitiesExist_ShouldReturnMappedEntities()
         {
             // ARRANGE
-            var mockEntities = new List<MockEntity>()
+            var mockEntities = new List<TEntity>()
             {
-                new MockEntity() { Id = 1 },
-                new MockEntity() { Id = 2 },
-                new MockEntity() { Id = 3 }
+                new TEntity() { Id = 1 },
+                new TEntity() { Id = 2 },
+                new TEntity() { Id = 3 }
             };
 
             // ARRANGE
-            var mapped = new List<MockDTO>()
+            var mapped = new List<TGetDTO>()
             {
-                new MockDTO() { Id = 1 },
-                new MockDTO() { Id = 2 },
-                new MockDTO() { Id = 3 }
+                new TGetDTO() { Id = 1 },
+                new TGetDTO() { Id = 2 },
+                new TGetDTO() { Id = 3 }
             };
 
             _repoMock.Setup(x => x.GetEntities()).Returns(mockEntities);
+            _mapperMock.Setup(x => x.Map<List<TGetDTO>>(mockEntities)).Returns(mapped);
 
             // ACT
             var response = _service.GetEntities();
@@ -154,7 +152,7 @@ namespace RecordShop.Tests.Services.Generic
         }
 
         [Test]
-        public void GetEntities_WhenEntitiesDoNotExist_ShouldReturnNotFound()
+        public virtual void GetEntities_WhenEntitiesDoNotExist_ShouldReturnNotFound()
         {
             // ARRANGE
             _repoMock.Setup(x => x.GetEntities()).Returns(() => []);
@@ -168,7 +166,7 @@ namespace RecordShop.Tests.Services.Generic
 
 
         [Test]
-        public void GetEntityById_ShouldCallAppropriateRepoMethods([Range(0, 10, 2)] int id)
+        public virtual void GetEntityById_ShouldCallAppropriateRepoMethods([Range(0, 10, 2)] int id)
         {
             // ACT
             _service.GetEntityById(id);
@@ -178,10 +176,10 @@ namespace RecordShop.Tests.Services.Generic
         }
 
         [Test]
-        public void GetEntityById_WhenEntityExists_ShouldCallMapMethod()
+        public virtual void GetEntityById_WhenEntityExists_ShouldCallMapMethod()
         {
             // ARRANGE
-            var mockEntity = new MockEntity() { Id = 1 };
+            var mockEntity = new TEntity() { Id = 1 };
 
             _repoMock.Setup(x => x.GetEntityById(1)).Returns(mockEntity);
 
@@ -189,15 +187,15 @@ namespace RecordShop.Tests.Services.Generic
             _service.GetEntityById(1);
 
             // ASSERT
-            _mapperMock.Verify(x => x.Map<MockDTO>(mockEntity), Times.Once);
+            _mapperMock.Verify(x => x.Map<TGetDTO>(mockEntity), Times.Once);
         }
 
         [Test]
-        public void GetEntityById_WhenEntityExists_ShouldReturnSuccess()
+        public virtual void GetEntityById_WhenEntityExists_ShouldReturnSuccess()
         {
             // ARRANGE
             int id = 1;
-            var mockEntity = new MockEntity() { Id = id };
+            var mockEntity = new TEntity() { Id = id };
             _repoMock.Setup(x => x.GetEntityById(id)).Returns(mockEntity);
 
             // ACT
@@ -208,13 +206,14 @@ namespace RecordShop.Tests.Services.Generic
         }
 
         [Test]
-        public void GetEntityById_WhenEntityExists_ShouldReturnMappedEntity()
+        public virtual void GetEntityById_WhenEntityExists_ShouldReturnMappedEntity()
         {
             // ARRANGE
             int id = 1;
-            var mockEntity = new MockEntity() { Id = id };
-            var mapped = new MockDTO() { Id = id };
+            var mockEntity = new TEntity() { Id = id };
+            var mapped = new TGetDTO() { Id = id };
             _repoMock.Setup(x => x.GetEntityById(id)).Returns(mockEntity);
+            _mapperMock.Setup(x => x.Map<TGetDTO>(mockEntity)).Returns(mapped);
 
             // ACT
             var response = _service.GetEntityById(id);
@@ -224,7 +223,7 @@ namespace RecordShop.Tests.Services.Generic
         }
 
         [Test]
-        public void GetEntityById_WhenEntityDoesNotExist_ShouldReturnNotFound()
+        public virtual void GetEntityById_WhenEntityDoesNotExist_ShouldReturnNotFound()
         {
             // ARRANGE
             int id = 1;
@@ -238,42 +237,42 @@ namespace RecordShop.Tests.Services.Generic
         }
 
         [Test]
-        public void InsertEntity_ShouldCallAppropriateRepoMethods()
+        public virtual void InsertEntity_ShouldCallAppropriateRepoMethods()
         {
             // ARRANGE
-            MockDTO mockDTO = new MockDTO() { Id = 10 };
-            _repoMock.Setup(x => x.InsertEntity(It.IsAny<MockEntity>())).Returns(() => 11);
+            var mockDTO = new TInsertDTO();
+            _repoMock.Setup(x => x.InsertEntity(It.IsAny<TEntity>())).Returns(() => 11);
 
             // ACT
             _service.InsertEntity(mockDTO);
 
             // ASSERT
-            _repoMock.Verify(x => x.InsertEntity(It.IsAny<MockEntity>()), Times.Once);
+            _repoMock.Verify(x => x.InsertEntity(It.IsAny<TEntity>()), Times.Once);
             _repoMock.Verify(x => x.Save(), Times.Once);
         }
 
         [Test]
-        public void InsertEntity_ShouldCallMapMethod()
+        public virtual void InsertEntity_ShouldCallMapMethod()
         {
             // ARRANGE
-            MockDTO mockDTO = new MockDTO() { Id = 10 };
-            _repoMock.Setup(x => x.InsertEntity(It.IsAny<MockEntity>())).Returns(() => 11);
+            var mockDTO = new TInsertDTO();
+            var mockEntity = new TEntity();
+            _repoMock.Setup(x => x.InsertEntity(It.IsAny<TEntity>())).Returns(() => 11);
+            _mapperMock.Setup(x => x.Map<TEntity>(mockDTO)).Returns(mockEntity);
 
             // ACT
             _service.InsertEntity(mockDTO);
 
             // ASSERT
-            _mapperMock.Verify(x => x.Map<MockEntity>(mockDTO), Times.Once);
+            _mapperMock.Verify(x => x.Map<TEntity>(mockDTO), Times.Once);
         }
 
         [Test]
-        public void InsertEntity_ShouldReturnNewEntityId([Range(0, 10, 2)] int newId)
+        public virtual void InsertEntity_ShouldReturnNewEntityId([Range(0, 10, 2)] int newId)
         {
             // ARRANGE
-            int id = 1;
-            var mockDto = new MockDTO() { Id = id };
-            var expectedResultDto = new MockDTO() { Id = newId };
-            _repoMock.Setup(x => x.InsertEntity(It.IsAny<MockEntity>())).Returns(() => newId);
+            var mockDto = new TInsertDTO();
+            _repoMock.Setup(x => x.InsertEntity(It.IsAny<TEntity>())).Returns(() => newId);
 
             // ACT
             var response = _service.InsertEntity(mockDto);
@@ -283,11 +282,11 @@ namespace RecordShop.Tests.Services.Generic
         }
 
         [Test]
-        public void InsertEntity_ShouldReturnSuccess()
+        public virtual void InsertEntity_ShouldReturnSuccess()
         {
             // ARRANGE
-            var mockDto = new MockDTO();
-            _repoMock.Setup(x => x.InsertEntity(It.IsAny<MockEntity>())).Returns(() => 1);
+            var mockDto = new TInsertDTO();
+            _repoMock.Setup(x => x.InsertEntity(It.IsAny<TEntity>())).Returns(() => 1);
 
             // ACT
             var response = _service.InsertEntity(mockDto);
@@ -297,46 +296,49 @@ namespace RecordShop.Tests.Services.Generic
         }
 
         [Test]
-        public void UpdateEntity_ShouldCallAppropriateRepoMethods()
+        public virtual void UpdateEntity_ShouldCallAppropriateRepoMethods()
         {
             // ARRANGE
             int id = 10;
-            MockDTO mockDto = new MockDTO() { Id = id };
-            MockEntity updatedMocKEntity = new MockEntity() { Id = id };
-            _repoMock.Setup(x => x.UpdateEntity(It.IsAny<MockEntity>())).Returns(updatedMocKEntity);
+            var mockDto = new TUpdateDTO();
+            TEntity mockEntity = new TEntity() { Id = id };
+            _repoMock.Setup(x => x.UpdateEntity(It.IsAny<TEntity>())).Returns(mockEntity);
+            _mapperMock.Setup(x => x.Map<TEntity>(mockDto)).Returns(mockEntity);
 
             // ACT
             _service.UpdateEntity(id, mockDto);
 
             // ASSERT
-            _repoMock.Verify(x => x.UpdateEntity(It.IsAny<MockEntity>()), Times.Once);
+            _repoMock.Verify(x => x.UpdateEntity(It.IsAny<TEntity>()), Times.Once);
             _repoMock.Verify(x => x.Save(), Times.Once);
         }
 
         [Test]
-        public void UpdateEntity_ShouldCallMapMethod()
+        public virtual void UpdateEntity_ShouldCallMapMethod()
         {
             // ARRANGE
             int id = 10;
-            MockDTO mockDTO = new MockDTO() { Id = id };
-            MockEntity updatedMocKEntity = new MockEntity() { Id = id };
-            _repoMock.Setup(x => x.UpdateEntity(It.IsAny<MockEntity>())).Returns(updatedMocKEntity);
+            var mockDTO = new TUpdateDTO();
+            TEntity mockEntity = new TEntity() { Id = id };
+            _repoMock.Setup(x => x.UpdateEntity(It.IsAny<TEntity>())).Returns(mockEntity);
+            _mapperMock.Setup(x => x.Map<TEntity>(mockDTO)).Returns(mockEntity);
 
             // ACT
             _service.UpdateEntity(id, mockDTO);
 
             // ASSERT
-            _mapperMock.Verify(x => x.Map<MockEntity>(mockDTO), Times.Once);
+            _mapperMock.Verify(x => x.Map<TEntity>(mockDTO), Times.Once);
         }
 
         [Test]
-        public void UpdateEntity_WhenEntityExists_ShouldReturnSuccess()
+        public virtual void UpdateEntity_WhenEntityExists_ShouldReturnSuccess()
         {
             // ARRANGE
             int id = 10;
-            MockDTO mockDTO = new MockDTO() { Id = id };
-            MockEntity updatedMocKEntity = new MockEntity() { Id = id };
-            _repoMock.Setup(x => x.UpdateEntity(It.IsAny<MockEntity>())).Returns(updatedMocKEntity);
+            var mockDTO = new TUpdateDTO();
+            TEntity mockEntity = new TEntity() { Id = id };
+            _repoMock.Setup(x => x.UpdateEntity(It.IsAny<TEntity>())).Returns(mockEntity);
+            _mapperMock.Setup(x => x.Map<TEntity>(mockDTO)).Returns(mockEntity);
 
             // ACT
             var response = _service.UpdateEntity(id, mockDTO);
@@ -346,12 +348,14 @@ namespace RecordShop.Tests.Services.Generic
         }
 
         [Test]
-        public void UpdateEntity_WhenEntityDoesNotExist_ShouldReturnNotFound()
+        public virtual void UpdateEntity_WhenEntityDoesNotExist_ShouldReturnNotFound()
         {
             // ARRANGE
             int id = 10;
-            MockDTO mockDTO = new MockDTO() { Id = 10 };
-            _repoMock.Setup(x => x.UpdateEntity(It.IsAny<MockEntity>())).Returns(() => null);
+            var mockDTO = new TUpdateDTO();
+            var mockEntity = new TEntity() { Id = id };
+            _repoMock.Setup(x => x.UpdateEntity(It.IsAny<TEntity>())).Returns(() => null);
+            _mapperMock.Setup(x => x.Map<TEntity>(mockDTO)).Returns(mockEntity);
 
             // ACT
             var response = _service.UpdateEntity(id, mockDTO);
