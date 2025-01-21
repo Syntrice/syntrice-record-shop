@@ -3,7 +3,7 @@ using RecordShop.Tests.Services.Generic;
 
 namespace RecordShop.Tests.Services
 {
-    public class ArtistsServiceTests : GenericMappingServiceTests<Artist, ArtistGetDTO, ArtistInsertDTO, ArtistUpdateDTO>
+    public class ArtistsServiceTests : GenericCRUDServiceTests<Artist, ArtistGetDTO, ArtistInsertDTO, ArtistUpdateDTO>
     {
     }
 }

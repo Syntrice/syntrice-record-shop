@@ -6,16 +6,16 @@ using RecordShop.Services.Response;
 
 namespace RecordShop.Services.Generic
 {
-    public class GenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> : IGenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>
+    public class GenericCRUDService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> : IGenericCRUDService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>
         where TEntity : class, IEntity
         where TGetDTO : class, IGetDTO
         where TInsertDTO : class, IInsertDTO
         where TUpdateDTO : class, IUpdateDTO
     {
-        private readonly IGenericRepository<TEntity> _repository;
+        private readonly IGenericCRUDRepository<TEntity> _repository;
         private readonly IMapper _mapper;
 
-        public GenericMappingService(IGenericRepository<TEntity> repository, IMapper mapper)
+        public GenericCRUDService(IGenericCRUDRepository<TEntity> repository, IMapper mapper)
         {
             _mapper = mapper;
             _repository = repository;

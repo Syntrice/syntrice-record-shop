@@ -3,7 +3,7 @@ using RecordShop.Repositories.Generic;
 
 namespace RecordShop.Repositories
 {
-    public interface IGenresRepository : IGenericRepository<Genre>
+    public interface IGenresRepository : IGenericCRUDRepository<Genre>
     {
     }
 }

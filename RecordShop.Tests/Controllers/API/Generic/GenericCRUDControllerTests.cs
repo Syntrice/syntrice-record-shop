@@ -11,20 +11,20 @@ using RecordShop.Tests.Utility;
 
 namespace RecordShop.Tests.Controllers.API.Generic
 {
-    public abstract class GenericMappingControllerTests<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>
+    public abstract class GenericCRUDControllerTests<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>
         where TEntity : class, IEntity, new()
         where TGetDTO : class, IGetDTO, new()
         where TInsertDTO : class, IInsertDTO, new()
         where TUpdateDTO : class, IUpdateDTO, new()
     {
-        private Mock<IGenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>> _serviceMock = null!;
-        private GenericMappingController<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> _controller = null!;
+        private Mock<IGenericCRUDService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>> _serviceMock = null!;
+        private GenericCRUDController<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> _controller = null!;
 
         [SetUp]
         protected virtual void Init()
         {
-            _serviceMock = new Mock<IGenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>>();
-            _controller = new GenericMappingController<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>(_serviceMock.Object);
+            _serviceMock = new Mock<IGenericCRUDService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>>();
+            _controller = new GenericCRUDController<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>(_serviceMock.Object);
         }
 
         [Test]

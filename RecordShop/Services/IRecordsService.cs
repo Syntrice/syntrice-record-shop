@@ -3,7 +3,7 @@ using RecordShop.Services.Generic;
 
 namespace RecordShop.Services
 {
-    public interface IRecordsService : IGenericMappingService<Record, RecordGetDTO, RecordInsertDTO, RecordUpdateDTO>
+    public interface IRecordsService : IGenericCRUDService<Record, RecordGetDTO, RecordInsertDTO, RecordUpdateDTO>
     {
     }
 }

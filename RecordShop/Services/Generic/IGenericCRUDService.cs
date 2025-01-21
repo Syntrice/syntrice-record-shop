@@ -3,7 +3,7 @@ using RecordShop.Services.Response;
 
 namespace RecordShop.Services.Generic
 {
-    public interface IGenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>
+    public interface IGenericCRUDService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>
         where TEntity : class, IEntity
         where TGetDTO : class, IGetDTO
         where TInsertDTO : class, IInsertDTO

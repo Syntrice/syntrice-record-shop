@@ -3,7 +3,7 @@ using RecordShop.Tests.Controllers.API.Generic;
 
 namespace RecordShop.Tests.Controllers.API
 {
-    public class GenresControllerTests : GenericMappingControllerTests<Genre, GenreGetDTO, GenreInsertDTO, GenreUpdateDTO>
+    public class GenresControllerTests : GenericCRUDControllerTests<Genre, GenreGetDTO, GenreInsertDTO, GenreUpdateDTO>
     {
 
     }

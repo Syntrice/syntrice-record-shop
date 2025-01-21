@@ -4,11 +4,11 @@ using RecordShop.Model.Database;
 
 namespace RecordShop.Repositories.Generic
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IEntity
+    public class GenericCRUDRepository<TEntity> : IGenericCRUDRepository<TEntity> where TEntity : class, IEntity
     {
         private readonly RecordShopDbContext _dbContext;
 
-        public GenericRepository(RecordShopDbContext dbContext)
+        public GenericCRUDRepository(RecordShopDbContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -4,7 +4,7 @@ using RecordShop.Tests.Services.Generic;
 namespace RecordShop.Tests.Services
 {
     [TestFixture]
-    public class RecordsServiceTests : GenericMappingServiceTests<Record, RecordGetDTO, RecordInsertDTO, RecordUpdateDTO>
+    public class RecordsServiceTests : GenericCRUDServiceTests<Record, RecordGetDTO, RecordInsertDTO, RecordUpdateDTO>
     {
 
     }
