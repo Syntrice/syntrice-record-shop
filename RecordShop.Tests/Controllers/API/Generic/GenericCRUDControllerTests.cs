@@ -1,13 +1,10 @@
-﻿using AutoMapper;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using RecordShop.Controllers.API.Generic;
 using RecordShop.Model;
-using RecordShop.Repositories.Generic;
 using RecordShop.Services.Generic;
 using RecordShop.Services.Response;
-using RecordShop.Tests.Utility;
 
 namespace RecordShop.Tests.Controllers.API.Generic
 {

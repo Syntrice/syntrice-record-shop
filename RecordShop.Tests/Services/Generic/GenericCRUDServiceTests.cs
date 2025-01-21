@@ -5,7 +5,6 @@ using RecordShop.Model;
 using RecordShop.Repositories.Generic;
 using RecordShop.Services.Generic;
 using RecordShop.Services.Response;
-using RecordShop.Tests.Utility;
 
 namespace RecordShop.Tests.Services.Generic
 {
