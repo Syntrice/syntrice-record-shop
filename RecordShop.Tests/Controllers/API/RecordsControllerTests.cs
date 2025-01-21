@@ -1,6 +1,10 @@
-﻿namespace RecordShop.Tests.Controllers.API
+﻿using RecordShop.Model.RecordModel;
+using RecordShop.Tests.Controllers.API.Generic;
+
+namespace RecordShop.Tests.Controllers.API
 {
-    internal class RecordsControllerTests
+    public class RecordsControllerTests : GenericMappingControllerTests<Record, RecordGetDTO, RecordInsertDTO, RecordUpdateDTO>
     {
+
     }
 }
