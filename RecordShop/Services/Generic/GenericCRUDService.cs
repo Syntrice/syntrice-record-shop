@@ -21,7 +21,7 @@ namespace RecordShop.Services.Generic
             _repository = repository;
         }
 
-        public ServiceResponse DeleteEntityById(int id)
+        public virtual ServiceResponse DeleteEntityById(int id)
         {
             TEntity? entity = _repository.DeleteEntityById(id);
 
@@ -35,7 +35,7 @@ namespace RecordShop.Services.Generic
             return new ServiceResponse(ServiceResponseType.Success, null);
         }
 
-        public ServiceObjectResponse<List<TGetDTO>> GetEntities()
+        public virtual ServiceObjectResponse<List<TGetDTO>> GetEntities()
         {
             var entities = _repository.GetEntities().ToList();
 
@@ -50,7 +50,7 @@ namespace RecordShop.Services.Generic
 
         }
 
-        public ServiceObjectResponse<TGetDTO> GetEntityById(int id)
+        public virtual ServiceObjectResponse<TGetDTO> GetEntityById(int id)
         {
             var entity = _repository.GetEntityById(id);
 
@@ -64,7 +64,7 @@ namespace RecordShop.Services.Generic
             return new ServiceObjectResponse<TGetDTO>(ServiceResponseType.Success, null, mapped);
         }
 
-        public ServiceObjectResponse<int> InsertEntity(TInsertDTO dto)
+        public virtual ServiceObjectResponse<int> InsertEntity(TInsertDTO dto)
         {
             var mapped = _mapper.Map<TEntity>(dto);
 
@@ -77,7 +77,7 @@ namespace RecordShop.Services.Generic
             return new ServiceObjectResponse<int>(ServiceResponseType.Success, null, id);
         }
 
-        public ServiceResponse UpdateEntity(int id, TUpdateDTO dto)
+        public virtual ServiceResponse UpdateEntity(int id, TUpdateDTO dto)
         {
             var mapped = _mapper.Map<TEntity>(dto);
 
