@@ -1,6 +1,14 @@
-﻿@inherits LayoutComponentBase
+﻿@using RecordShop.Frontend.Client.Components.Footer
+@using RecordShop.Frontend.Client.Components.Navbar
+@inherits LayoutComponentBase
 
-@Body
+<Navbar/>
+
+<main class="section">
+    @Body
+</main>
+
+<Footer/>
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.
