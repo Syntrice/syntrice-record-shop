@@ -1,0 +1,16 @@
+﻿@rendermode InteractiveAuto
+
+@code {
+    private bool IsActive { get; set; } = false;
+    private void ToggleMenu()
+    {
+        IsActive = !IsActive;
+    }
+}
+
+<nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
+    <NavbarBrand>
+        <NavbarToggle OnClick="ToggleMenu" IsActive="IsActive"/>
+    </NavbarBrand>
+    <NavbarMenu IsActive="IsActive"/>
+</nav>
