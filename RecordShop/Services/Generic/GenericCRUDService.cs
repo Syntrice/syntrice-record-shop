@@ -6,22 +6,22 @@ using RecordShop.Services.Response;
 
 namespace RecordShop.Services.Generic
 {
-    public class GenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> : IGenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>
-        where TEntity : class, IIdentifiable
-        where TGetDTO : class, IIdentifiable
-        where TInsertDTO : class
-        where TUpdateDTO : class
+    public class GenericCRUDService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> : IGenericCRUDService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>
+        where TEntity : class, IEntity
+        where TGetDTO : class, IGetDTO
+        where TInsertDTO : class, IInsertDTO
+        where TUpdateDTO : class, IUpdateDTO
     {
-        private readonly IGenericRepository<TEntity> _repository;
+        private readonly IGenericCRUDRepository<TEntity> _repository;
         private readonly IMapper _mapper;
 
-        public GenericMappingService(IGenericRepository<TEntity> repository, IMapper mapper)
+        public GenericCRUDService(IGenericCRUDRepository<TEntity> repository, IMapper mapper)
         {
             _mapper = mapper;
             _repository = repository;
         }
 
-        public ServiceResponse DeleteEntityById(int id)
+        public virtual ServiceResponse DeleteEntityById(int id)
         {
             TEntity? entity = _repository.DeleteEntityById(id);
 
@@ -35,7 +35,7 @@ namespace RecordShop.Services.Generic
             return new ServiceResponse(ServiceResponseType.Success, null);
         }
 
-        public ServiceObjectResponse<List<TGetDTO>> GetEntities()
+        public virtual ServiceObjectResponse<List<TGetDTO>> GetEntities()
         {
             var entities = _repository.GetEntities().ToList();
 
@@ -50,7 +50,7 @@ namespace RecordShop.Services.Generic
 
         }
 
-        public ServiceObjectResponse<TGetDTO> GetEntityById(int id)
+        public virtual ServiceObjectResponse<TGetDTO> GetEntityById(int id)
         {
             var entity = _repository.GetEntityById(id);
 
@@ -64,7 +64,7 @@ namespace RecordShop.Services.Generic
             return new ServiceObjectResponse<TGetDTO>(ServiceResponseType.Success, null, mapped);
         }
 
-        public ServiceObjectResponse<int> InsertEntity(TInsertDTO dto)
+        public virtual ServiceObjectResponse<int> InsertEntity(TInsertDTO dto)
         {
             var mapped = _mapper.Map<TEntity>(dto);
 
@@ -77,7 +77,7 @@ namespace RecordShop.Services.Generic
             return new ServiceObjectResponse<int>(ServiceResponseType.Success, null, id);
         }
 
-        public ServiceResponse UpdateEntity(int id, TUpdateDTO dto)
+        public virtual ServiceResponse UpdateEntity(int id, TUpdateDTO dto)
         {
             var mapped = _mapper.Map<TEntity>(dto);
 

@@ -4,7 +4,7 @@ using RecordShop.Repositories.Generic;
 
 namespace RecordShop.Repositories
 {
-    public class ArtistsRepository : GenericRepository<Artist>, IArtistsRepository
+    public class ArtistsRepository : GenericCRUDRepository<Artist>, IArtistsRepository
     {
         public ArtistsRepository(RecordShopDbContext dbContext) : base(dbContext)
         {

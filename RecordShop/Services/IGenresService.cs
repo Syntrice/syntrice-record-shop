@@ -3,7 +3,7 @@ using RecordShop.Services.Generic;
 
 namespace RecordShop.Services
 {
-    public interface IGenresService : IGenericMappingService<Genre, GenreGetDTO, GenreInsertDTO, GenreUpdateDTO> 
+    public interface IGenresService : IGenericCRUDService<Genre, GenreGetDTO, GenreInsertDTO, GenreUpdateDTO> 
 
     {
     }

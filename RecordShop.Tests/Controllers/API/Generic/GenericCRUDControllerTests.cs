@@ -2,29 +2,33 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using RecordShop.Controllers.API.Generic;
+using RecordShop.Model;
 using RecordShop.Services.Generic;
 using RecordShop.Services.Response;
-using RecordShop.Tests.Utility;
 
 namespace RecordShop.Tests.Controllers.API.Generic
 {
-    public class GenericNonMappingControllerTests
+    public abstract class GenericCRUDControllerTests<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>
+        where TEntity : class, IEntity, new()
+        where TGetDTO : class, IGetDTO, new()
+        where TInsertDTO : class, IInsertDTO, new()
+        where TUpdateDTO : class, IUpdateDTO, new()
     {
-        private Mock<IGenericNonMappingService<MockEntity>> _serviceMock;
-        private GenericNonMappingController<MockEntity> _controller;
+        private Mock<IGenericCRUDService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>> _serviceMock = null!;
+        private GenericCRUDController<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> _controller = null!;
 
         [SetUp]
-        public void Init()
+        protected virtual void Init()
         {
-            _serviceMock = new Mock<IGenericNonMappingService<MockEntity>>();
-            _controller = new GenericNonMappingController<MockEntity>(_serviceMock.Object);
+            _serviceMock = new Mock<IGenericCRUDService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>>();
+            _controller = new GenericCRUDController<TEntity, TGetDTO, TInsertDTO, TUpdateDTO>(_serviceMock.Object);
         }
 
         [Test]
-        public void Get_ShouldCallAppropriateServiceMethod()
+        public virtual void Get_ShouldCallAppropriateServiceMethod()
         {
             // ARRANGE
-            var serviceResponse = new ServiceObjectResponse<List<MockEntity>>(ServiceResponseType.NotFound, "message", null);
+            var serviceResponse = new ServiceObjectResponse<List<TGetDTO>>(ServiceResponseType.NotFound, "message", null);
             _serviceMock.Setup(x => x.GetEntities()).Returns(() => serviceResponse);
 
             // ACT
@@ -35,10 +39,10 @@ namespace RecordShop.Tests.Controllers.API.Generic
         }
 
         [Test]
-        public void Get_WhenNotFoundServiceResponse_ReturnsNotFoundWithMessage()
+        public virtual void Get_WhenNotFoundServiceResponse_ReturnsNotFoundWithMessage()
         {
             // ARRANGE
-            var serviceResponse = new ServiceObjectResponse<List<MockEntity>>(ServiceResponseType.NotFound, "message", null);
+            var serviceResponse = new ServiceObjectResponse<List<TGetDTO>>(ServiceResponseType.NotFound, "message", null);
             _serviceMock.Setup(x => x.GetEntities()).Returns(() => serviceResponse);
 
             // ACT
@@ -50,11 +54,11 @@ namespace RecordShop.Tests.Controllers.API.Generic
         }
 
         [Test]
-        public void Get_WhenSuccessServiceResponse_ReturnsOkObjectResult()
+        public virtual void Get_WhenSuccessServiceResponse_ReturnsOkObjectResult()
         {
             // ARRANGE
-            var mockEntities = new List<MockEntity>() { new MockEntity() };
-            var serviceResponse = new ServiceObjectResponse<List<MockEntity>>(ServiceResponseType.Success, null, mockEntities);
+            var mockGetDTOs = new List<TGetDTO>() { new TGetDTO() };
+            var serviceResponse = new ServiceObjectResponse<List<TGetDTO>>(ServiceResponseType.Success, null, mockGetDTOs);
             _serviceMock.Setup(x => x.GetEntities()).Returns(() => serviceResponse);
 
             // ACT
@@ -65,10 +69,10 @@ namespace RecordShop.Tests.Controllers.API.Generic
         }
 
         [Test]
-        public void GetById_ShouldCallAppropriateServiceMethod([Range(0,1)] int id)
+        public virtual void GetById_ShouldCallAppropriateServiceMethod([Range(0,1)] int id)
         {
             // ARRANGE
-            var serviceResponse = new ServiceObjectResponse<MockEntity>(ServiceResponseType.NotFound, "message", null);
+            var serviceResponse = new ServiceObjectResponse<TGetDTO>(ServiceResponseType.NotFound, "message", null);
             _serviceMock.Setup(x => x.GetEntityById(id)).Returns(serviceResponse);
 
             // ACT
@@ -79,11 +83,11 @@ namespace RecordShop.Tests.Controllers.API.Generic
         }
 
         [Test]
-        public void GetById_WhenNotFoundServiceResponse_ReturnsNotFoundWithMessage()
+        public virtual void GetById_WhenNotFoundServiceResponse_ReturnsNotFoundWithMessage()
         {
             // ARRANGE
             int id = 1;
-            var serviceResponse = new ServiceObjectResponse<MockEntity>(ServiceResponseType.NotFound, "message", null);
+            var serviceResponse = new ServiceObjectResponse<TGetDTO>(ServiceResponseType.NotFound, "message", null);
             _serviceMock.Setup(x => x.GetEntityById(id)).Returns(serviceResponse);
 
             // ACT
@@ -95,12 +99,12 @@ namespace RecordShop.Tests.Controllers.API.Generic
         }
 
         [Test]
-        public void GetById_WhenSuccessServiceResponse_ReturnsOkObjectResult()
+        public virtual void GetById_WhenSuccessServiceResponse_ReturnsOkObjectResult()
         {
             // ARRANGE
             int id = 1;
-            var mockEntity = new MockEntity() { Id = id };
-            var serviceResponse = new ServiceObjectResponse<MockEntity>(ServiceResponseType.Success, null, mockEntity);
+            var mockGetDTO = new TGetDTO();
+            var serviceResponse = new ServiceObjectResponse<TGetDTO>(ServiceResponseType.Success, null, mockGetDTO);
             _serviceMock.Setup(x => x.GetEntityById(id)).Returns(serviceResponse);
 
             // ACT
@@ -111,37 +115,37 @@ namespace RecordShop.Tests.Controllers.API.Generic
         }
 
         [Test]
-        public void Post_ShouldCallAppropriateServiceMethod()
+        public virtual void Post_ShouldCallAppropriateServiceMethod()
         {
             // ARRANGE
-            var mockEntity = new MockEntity();
-            var serviceResponse = new ServiceObjectResponse<int>(ServiceResponseType.Success, null, mockEntity.Id);
-            _serviceMock.Setup(x => x.InsertEntity(mockEntity)).Returns(serviceResponse);
+            var mockInsertDTO = new TInsertDTO();
+            var serviceResponse = new ServiceObjectResponse<int>(ServiceResponseType.Success, null, 0);
+            _serviceMock.Setup(x => x.InsertEntity(mockInsertDTO)).Returns(serviceResponse);
 
             // ACT
-            _controller.Post(mockEntity);
+            _controller.Post(mockInsertDTO);
 
             // ASSERT
-            _serviceMock.Verify(x => x.InsertEntity(mockEntity), Times.Once);
+            _serviceMock.Verify(x => x.InsertEntity(mockInsertDTO), Times.Once);
         }
 
         [Test]
-        public void Post_WhenSuccessServiceResponse_ReturnsCreatedResult()
+        public virtual void Post_WhenSuccessServiceResponse_ReturnsCreatedResult()
         {
             // ARRANGE
-            var mockEntity = new MockEntity();
-            var serviceResponse = new ServiceObjectResponse<int>(ServiceResponseType.Success, null, mockEntity.Id);
-            _serviceMock.Setup(x => x.InsertEntity(mockEntity)).Returns(serviceResponse);
+            var mockInsertDTO = new TInsertDTO();
+            var serviceResponse = new ServiceObjectResponse<int>(ServiceResponseType.Success, null, 0);
+            _serviceMock.Setup(x => x.InsertEntity(mockInsertDTO)).Returns(serviceResponse);
 
             // ACT
-            var result = _controller.Post(mockEntity);
+            var result = _controller.Post(mockInsertDTO);
 
             // ASSERT
             result.Should().BeOfType<CreatedResult>();
         }
 
         [Test]
-        public void Delete_ShouldCallAppropriateServiceMethod([Range(0, 1)] int id)
+        public virtual void Delete_ShouldCallAppropriateServiceMethod([Range(0, 1)] int id)
         {
             // ARRANGE
             var serviceResponse = new ServiceResponse(ServiceResponseType.NotFound, "message");
@@ -155,7 +159,7 @@ namespace RecordShop.Tests.Controllers.API.Generic
         }
 
         [Test]
-        public void Delete_WhenNotFoundServiceResponse_ReturnsNotFoundWithMessage()
+        public virtual void Delete_WhenNotFoundServiceResponse_ReturnsNotFoundWithMessage()
         {
             // ARRANGE
             int id = 1;
@@ -171,7 +175,7 @@ namespace RecordShop.Tests.Controllers.API.Generic
         }
 
         [Test]
-        public void Delete_WhenSuccessServiceResponse_ReturnsNoContentResult()
+        public virtual void Delete_WhenSuccessServiceResponse_ReturnsNoContentResult()
         {
             // ARRANGE
             int id = 1;
@@ -187,31 +191,31 @@ namespace RecordShop.Tests.Controllers.API.Generic
 
 
         [Test]
-        public void Put_ShouldCallAppropriateServiceMethod([Range(0, 1)] int id)
+        public virtual void Put_ShouldCallAppropriateServiceMethod([Range(0, 1)] int id)
         {
             // ARRANGE
-            var mockEntity = new MockEntity() { Id = id };
+            var mockInsertDTO = new TUpdateDTO();
             var serviceResponse = new ServiceResponse(ServiceResponseType.NotFound, "message");
-            _serviceMock.Setup(x => x.UpdateEntity(id, mockEntity)).Returns(serviceResponse);
+            _serviceMock.Setup(x => x.UpdateEntity(id, mockInsertDTO)).Returns(serviceResponse);
 
             // ACT
-            _controller.Put(id, mockEntity);
+            _controller.Put(id, mockInsertDTO);
 
             // ASSERT
-            _serviceMock.Verify(x => x.UpdateEntity(id, mockEntity), Times.Once);
+            _serviceMock.Verify(x => x.UpdateEntity(id, mockInsertDTO), Times.Once);
         }
 
         [Test]
-        public void Put_WhenNotFoundServiceResponse_ReturnsNotFoundWithMessage()
+        public virtual void Put_WhenNotFoundServiceResponse_ReturnsNotFoundWithMessage()
         {
             // ARRANGE
             int id = 1;
-            var mockEntity = new MockEntity() { Id = id };
+            var mockInsertDTO = new TUpdateDTO();
             var serviceResponse = new ServiceResponse(ServiceResponseType.NotFound, "message");
-            _serviceMock.Setup(x => x.UpdateEntity(id, mockEntity)).Returns(serviceResponse);
+            _serviceMock.Setup(x => x.UpdateEntity(id, mockInsertDTO)).Returns(serviceResponse);
 
             // ACT
-            var result = _controller.Put(id, mockEntity);
+            var result = _controller.Put(id, mockInsertDTO);
 
             // ASSERT
             var okResult = result.Should().BeOfType<NotFoundObjectResult>().Subject;
@@ -219,16 +223,16 @@ namespace RecordShop.Tests.Controllers.API.Generic
         }
 
         [Test]
-        public void Put_WhenSuccessServiceResponse_ReturnsNoContentResult()
+        public virtual void Put_WhenSuccessServiceResponse_ReturnsNoContentResult()
         {
             // ARRANGE
             int id = 1;
-            var mockEntity = new MockEntity() { Id = id };
+            var mockInsertDTO = new TUpdateDTO();
             var serviceResponse = new ServiceResponse(ServiceResponseType.Success, null);
-            _serviceMock.Setup(x => x.UpdateEntity(id, mockEntity)).Returns(serviceResponse);
+            _serviceMock.Setup(x => x.UpdateEntity(id, mockInsertDTO)).Returns(serviceResponse);
 
             // ACT
-            var result = _controller.Put(id, mockEntity);
+            var result = _controller.Put(id, mockInsertDTO);
 
             // ASSERT
             result.Should().BeOfType<NoContentResult>();

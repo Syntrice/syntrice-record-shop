@@ -4,7 +4,7 @@ using RecordShop.Services.Generic;
 
 namespace RecordShop.Services
 {
-    public interface IArtistsService : IGenericMappingService<Artist, ArtistGetDTO, ArtistInsertDTO, ArtistUpdateDTO>
+    public interface IArtistsService : IGenericCRUDService<Artist, ArtistGetDTO, ArtistInsertDTO, ArtistUpdateDTO>
     {
     }
 }

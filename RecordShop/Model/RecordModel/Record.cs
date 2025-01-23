@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecordShop.Model.RecordModel
 {
-    public class Record : IIdentifiable
+    public class Record : IEntity
     {
         [Key]
         public int Id { get; set; }

@@ -5,15 +5,15 @@ using RecordShop.Services.Response;
 
 namespace RecordShop.Controllers.API.Generic
 {
-    public class GenericMappingController<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> : ControllerBase
-        where TEntity : class, IIdentifiable
-        where TGetDTO : class, IIdentifiable
-        where TInsertDTO : class
-        where TUpdateDTO : class
+    public class GenericCRUDController<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> : ControllerBase
+        where TEntity : class, IEntity
+        where TGetDTO : class, IGetDTO
+        where TInsertDTO : class, IInsertDTO
+        where TUpdateDTO : class, IUpdateDTO
     {
-        private readonly IGenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> _genericService;
+        private readonly IGenericCRUDService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> _genericService;
 
-        public GenericMappingController(IGenericMappingService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> genericService)
+        public GenericCRUDController(IGenericCRUDService<TEntity, TGetDTO, TInsertDTO, TUpdateDTO> genericService)
         {
             _genericService = genericService;
         }

@@ -8,7 +8,7 @@ namespace RecordShop.Controllers.API
 
     [ApiController]
     [Route("api/[controller]")]
-    public class RecordsController : GenericMappingController<Record, RecordGetDTO, RecordInsertDTO, RecordUpdateDTO>
+    public class RecordsController : GenericCRUDController<Record, RecordGetDTO, RecordInsertDTO, RecordUpdateDTO>
     {
         public RecordsController(IRecordsService recordsService) : base(recordsService) { }
     }
