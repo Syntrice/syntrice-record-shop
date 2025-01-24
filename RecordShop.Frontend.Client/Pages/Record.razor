@@ -49,11 +49,21 @@
 }
 else 
 {
+    
     <PageTitle>@record.Title</PageTitle>
-    <h1 class="title">@record.Title</h1>
-    <h1 class="subtitle">@record.Artist</h1>
-    <p>Release Year: @record.ReleaseYear</p>
-    <p>Genre: @record.Genre</p>
-    <p>Price: @record.UnitPrice</p>
-    <p>Quantity in stock: @record.Quantity</p>
+    <div class="hero is-info">
+        <div class="hero-body">
+
+            <h1 class="title">@record.Title</h1>
+            <h2 class="subtitle">@record.Artist</h2>
+        </div>
+    </div>
+    <div class="section content">
+        <ul class="panel-list">
+            <li>Release Year: @record.ReleaseYear</li>
+            <li>Genre: @record.Genre</li>
+            <li>Price: @record.UnitPrice</li>
+            <li>Quantity in stock: @record.Quantity</li>
+        </ul>
+    </div>
 }
