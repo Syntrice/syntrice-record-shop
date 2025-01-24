@@ -7,6 +7,11 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+
+// Create a named HTTP client connecting to the RecordShop backend
+// This is duplicated on the client blazor project
+builder.Services.AddHttpClient("RecordShopAPI", client => client.BaseAddress = new Uri(builder.Configuration["BackendUrl"] ?? "https://localhost:7196"));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
