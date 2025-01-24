@@ -2,20 +2,18 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RecordShop.Model.Database;
+using RecordShop.Database;
+
 
 #nullable disable
 
 namespace RecordShop.Migrations
 {
     [DbContext(typeof(RecordShopDbContext))]
-    [Migration("20250115153723_RecordShopMigration1")]
-    partial class RecordShopMigration1
+    partial class RecordShopDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +25,24 @@ namespace RecordShop.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RecordShop.Model.GenreModel.Genre", b =>
+            modelBuilder.Entity("RecordShop.Common.Models.ArtistModel.Artist", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Artists");
+                });
+
+            modelBuilder.Entity("RecordShop.Common.Models.GenreModel.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,7 +59,7 @@ namespace RecordShop.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("RecordShop.Model.RecordModel.Record", b =>
+            modelBuilder.Entity("RecordShop.Common.Models.RecordModel.Record", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,9 +67,8 @@ namespace RecordShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Artist")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ArtistId")
+                        .HasColumnType("int");
 
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
@@ -74,23 +88,33 @@ namespace RecordShop.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ArtistId");
+
                     b.HasIndex("GenreId");
 
                     b.ToTable("Records");
                 });
 
-            modelBuilder.Entity("RecordShop.Model.RecordModel.Record", b =>
+            modelBuilder.Entity("RecordShop.Common.Models.RecordModel.Record", b =>
                 {
-                    b.HasOne("RecordShop.Model.GenreModel.Genre", "Genre")
+                    b.HasOne("RecordShop.Common.Models.ArtistModel.Artist", "Artist")
+                        .WithMany()
+                        .HasForeignKey("ArtistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecordShop.Common.Models.GenreModel.Genre", "Genre")
                         .WithMany("Records")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Artist");
+
                     b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("RecordShop.Model.GenreModel.Genre", b =>
+            modelBuilder.Entity("RecordShop.Common.Models.GenreModel.Genre", b =>
                 {
                     b.Navigation("Records");
                 });

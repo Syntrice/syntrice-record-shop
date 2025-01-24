@@ -1,4 +1,4 @@
-﻿using RecordShop.Model;
+﻿using RecordShop.Common.Models;
 using RecordShop.Services.Response;
 
 namespace RecordShop.Services.Generic

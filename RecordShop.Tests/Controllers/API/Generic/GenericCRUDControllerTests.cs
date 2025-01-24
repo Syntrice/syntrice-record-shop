@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using RecordShop.Controllers.API.Generic;
-using RecordShop.Model;
+using RecordShop.Common.Models;
 using RecordShop.Services.Generic;
 using RecordShop.Services.Response;
 

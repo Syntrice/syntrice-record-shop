@@ -1,4 +1,4 @@
-﻿namespace RecordShop.Model
+﻿namespace RecordShop.Common.Models
 {
     public interface IUpdateDTO
     {

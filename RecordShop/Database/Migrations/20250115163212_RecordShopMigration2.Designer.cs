@@ -2,17 +2,21 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RecordShop.Model.Database;
+using RecordShop.Database;
+
 
 #nullable disable
 
 namespace RecordShop.Migrations
 {
     [DbContext(typeof(RecordShopDbContext))]
-    partial class RecordShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250115163212_RecordShopMigration2")]
+    partial class RecordShopMigration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,7 +28,7 @@ namespace RecordShop.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RecordShop.Model.ArtistModel.Artist", b =>
+            modelBuilder.Entity("RecordShop.Common.Models.ArtistModel.Artist", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +45,7 @@ namespace RecordShop.Migrations
                     b.ToTable("Artists");
                 });
 
-            modelBuilder.Entity("RecordShop.Model.GenreModel.Genre", b =>
+            modelBuilder.Entity("RecordShop.Common.Models.GenreModel.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,7 +62,7 @@ namespace RecordShop.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("RecordShop.Model.RecordModel.Record", b =>
+            modelBuilder.Entity("RecordShop.Common.Models.RecordModel.Record", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,15 +98,15 @@ namespace RecordShop.Migrations
                     b.ToTable("Records");
                 });
 
-            modelBuilder.Entity("RecordShop.Model.RecordModel.Record", b =>
+            modelBuilder.Entity("RecordShop.Common.Models.RecordModel.Record", b =>
                 {
-                    b.HasOne("RecordShop.Model.ArtistModel.Artist", "Artist")
+                    b.HasOne("RecordShop.Common.Models.ArtistModel.Artist", "Artist")
                         .WithMany()
                         .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RecordShop.Model.GenreModel.Genre", "Genre")
+                    b.HasOne("RecordShop.Common.Models.GenreModel.Genre", "Genre")
                         .WithMany("Records")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -113,7 +117,7 @@ namespace RecordShop.Migrations
                     b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("RecordShop.Model.GenreModel.Genre", b =>
+            modelBuilder.Entity("RecordShop.Common.Models.GenreModel.Genre", b =>
                 {
                     b.Navigation("Records");
                 });

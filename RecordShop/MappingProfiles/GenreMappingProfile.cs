@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using RecordShop.Model.GenreModel;
+using RecordShop.Common.Models.GenreModel;
 
-namespace RecordShop.Model.MappingProfiles
+namespace RecordShop.Common.Models.MappingProfiles
 {
     public class GenreMappingProfile : Profile
     {

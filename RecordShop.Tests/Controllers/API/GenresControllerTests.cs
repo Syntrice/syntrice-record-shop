@@ -1,4 +1,4 @@
-﻿using RecordShop.Model.GenreModel;
+﻿using RecordShop.Common.Models.GenreModel;
 using RecordShop.Tests.Controllers.API.Generic;
 
 namespace RecordShop.Tests.Controllers.API

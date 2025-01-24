@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using RecordShop.Model.ArtistModel;
+using RecordShop.Common.Models.ArtistModel;
 
-namespace RecordShop.Model.MappingProfiles
+namespace RecordShop.Common.Models.MappingProfiles
 {
     public class ArtistMappingProfile : Profile
     {

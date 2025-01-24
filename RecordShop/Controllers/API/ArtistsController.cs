@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecordShop.Controllers.API.Generic;
-using RecordShop.Model.ArtistModel;
+using RecordShop.Common.Models.ArtistModel;
 using RecordShop.Services;
 using RecordShop.Services.Generic;
 

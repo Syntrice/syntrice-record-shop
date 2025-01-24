@@ -25,4 +25,8 @@
     <InternalsVisibleTo Include="RecordShop.Tests" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RecordShop.Common\RecordShop.Common.csproj" />
+  </ItemGroup>
+
 </Project>

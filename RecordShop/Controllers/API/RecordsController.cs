@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecordShop.Controllers.API.Generic;
-using RecordShop.Model.RecordModel;
+using RecordShop.Common.Models.RecordModel;
 using RecordShop.Services;
 
 namespace RecordShop.Controllers.API

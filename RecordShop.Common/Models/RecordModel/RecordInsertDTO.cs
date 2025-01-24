@@ -1,6 +1,8 @@
-﻿namespace RecordShop.Model.RecordModel
+﻿using RecordShop.Common.Models;
+
+namespace RecordShop.Common.Models.RecordModel
 {
-    public class RecordUpdateDTO : IUpdateDTO
+    public class RecordInsertDTO : IInsertDTO
     {
         public string Title { get; set; } = null!;
         public int ArtistId { get; set; }

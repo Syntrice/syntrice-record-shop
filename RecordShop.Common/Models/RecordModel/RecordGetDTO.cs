@@ -1,4 +1,6 @@
-﻿namespace RecordShop.Model.RecordModel
+﻿using RecordShop.Common.Models;
+
+namespace RecordShop.Common.Models.RecordModel
 {
     public class RecordGetDTO : IGetDTO
     {

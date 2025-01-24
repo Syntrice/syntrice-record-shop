@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using RecordShop.Model.RecordModel;
+using RecordShop.Common.Models.RecordModel;
 
-namespace RecordShop.Model.MappingProfiles
+namespace RecordShop.Common.Models.MappingProfiles
 {
     public class RecordMappingProfile : Profile
     {

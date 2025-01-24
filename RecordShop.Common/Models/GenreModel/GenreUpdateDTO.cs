@@ -1,6 +1,6 @@
-﻿using RecordShop.Model.RecordModel;
+﻿using RecordShop.Common.Models;
 
-namespace RecordShop.Model.GenreModel
+namespace RecordShop.Common.Models.GenreModel
 {
     public class GenreUpdateDTO : IUpdateDTO
     {

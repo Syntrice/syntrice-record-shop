@@ -1,4 +1,4 @@
-﻿using RecordShop.Model.ArtistModel;
+﻿using RecordShop.Common.Models.ArtistModel;
 using RecordShop.Tests.Controllers.API.Generic;
 
 namespace RecordShop.Tests.Controllers.API

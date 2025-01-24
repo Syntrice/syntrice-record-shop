@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
-using RecordShop.Model;
+using RecordShop.Common.Models;
 using RecordShop.Repositories.Generic;
 using RecordShop.Services.Response;
 

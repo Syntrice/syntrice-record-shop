@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using RecordShop.Model.RecordModel;
+using RecordShop.Common.Models.RecordModel;
 using RecordShop.Repositories;
 using RecordShop.Services.Generic;
 

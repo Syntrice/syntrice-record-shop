@@ -1,4 +1,6 @@
-﻿namespace RecordShop.Model.ArtistModel
+﻿using RecordShop.Common.Models;
+
+namespace RecordShop.Common.Models.ArtistModel
 {
     public class ArtistUpdateDTO : IUpdateDTO
     {

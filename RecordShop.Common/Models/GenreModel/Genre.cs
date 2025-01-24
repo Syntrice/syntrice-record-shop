@@ -1,6 +1,7 @@
-﻿using RecordShop.Model.RecordModel;
+﻿using RecordShop.Common.Models;
+using RecordShop.Common.Models.RecordModel;
 
-namespace RecordShop.Model.GenreModel
+namespace RecordShop.Common.Models.GenreModel
 {
     public class Genre : IEntity
     {

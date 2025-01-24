@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RecordShop.Model.ArtistModel;
-using RecordShop.Model.GenreModel;
-using RecordShop.Model.RecordModel;
+using RecordShop.Common.Models.ArtistModel;
+using RecordShop.Common.Models.GenreModel;
+using RecordShop.Common.Models.RecordModel;
 
-namespace RecordShop.Model.Database
+namespace RecordShop.Database
 {
     public class RecordShopDbContext : DbContext
     {

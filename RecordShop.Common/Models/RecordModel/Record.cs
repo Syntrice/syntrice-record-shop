@@ -1,9 +1,10 @@
-﻿using RecordShop.Model.ArtistModel;
-using RecordShop.Model.GenreModel;
+﻿using RecordShop.Common.Models;
+using RecordShop.Common.Models.ArtistModel;
+using RecordShop.Common.Models.GenreModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RecordShop.Model.RecordModel
+namespace RecordShop.Common.Models.RecordModel
 {
     public class Record : IEntity
     {
