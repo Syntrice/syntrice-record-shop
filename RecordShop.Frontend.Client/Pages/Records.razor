@@ -1,0 +1,54 @@
+﻿@page "/records"
+
+<PageTitle>Records</PageTitle>
+
+@rendermode InteractiveAuto
+@using RecordShop.Common.Models.RecordModel
+@using RecordShop.Frontend.Client.Layout.Record
+@implements IDisposable
+@inject PersistentComponentState ApplicationState
+@inject IHttpClientFactory ClientFactory
+
+@code {
+
+    private RecordGetDTO[]? records;
+    private PersistingComponentStateSubscription persistingSubscription;
+
+    protected override async Task OnInitializedAsync()
+    {
+        persistingSubscription = ApplicationState.RegisterOnPersisting(PersistData);
+
+        if (!ApplicationState.TryTakeFromJson<RecordGetDTO[]>(nameof(records), out var restoredData))
+        {
+            var client = ClientFactory.CreateClient("RecordShopAPI");
+            var response = await client.GetAsync($"/api/records");
+            records = response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<RecordGetDTO[]>() : null;
+        }
+        else
+        {
+            records = restoredData!;
+        }
+    }
+
+    private Task PersistData()
+    {
+        ApplicationState.PersistAsJson(nameof(records), records);
+
+        return Task.CompletedTask;
+    }
+
+    void IDisposable.Dispose()
+    {
+        persistingSubscription.Dispose();
+    }
+}
+
+@if (records != null)
+{
+    <div class="section container">
+        @foreach (var record in records)
+        {
+            <RecordSummary Record="record" />
+        }
+    </div>
+}
