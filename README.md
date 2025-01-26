@@ -16,6 +16,12 @@ It consists of a backend RESTful API and a Dynamic Web Application, designed to 
 - **General:** Dependency Injection, Layered Architecture, HTTP Request Handling,
   Repository-Service-Controller Pattern, Generics, Test Driven Development, Data Transfer Objects
 
+## Future Improvements
+
+- Use Tailwind.css instead of Bulma for more frontend styling control
+- Full API coverage from frontend
+- Authentication
+
 ## Setup
 
 If you are running windows, the easiest way to build this solution is through Microsoft Visual Studio 2022. You will also need .NET 8.0 installed.
