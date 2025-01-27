@@ -7,15 +7,11 @@
 @code {
     private Preferences _preferences = new();
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
         ProfileService.OnChange += ProfileServiceOnChange;
-
-        if (firstRender)
-        {
-            _preferences = await ProfileService.GetPreferencesAsync();
-            StateHasChanged();
-        }
+        _preferences = await ProfileService.GetPreferencesAsync();
+        StateHasChanged();
     }
 
     private void ProfileServiceOnChange(Preferences newPreferences)
@@ -23,15 +19,25 @@
         _preferences = newPreferences;
         StateHasChanged();
     }
+
+    public void Dispose()
+    {
+        ProfileService.OnChange -= ProfileServiceOnChange;
+    }
 }
 
-<div class="@(_preferences.DarkMode ? "dark" : "")">
+<div class="@(_preferences.DarkMode ? "dark" : "") flex h-screen flex-col justify-between dark:bg-slate-700 dark:text-slate-200">
     <Navbar/>
-    <main class="section">
-        @Body
+    <main class="mb-auto">
+        <div class="mx-auto max-w-4xl px-3 py-7 xl:max-w-5xl">
+            @Body
+        </div>
     </main>
     <Footer />
 </div>
+
+
+
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.
