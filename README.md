@@ -11,14 +11,13 @@ It consists of a backend RESTful API and a Dynamic Web Application, designed to 
 - **Language:** C#
 - **Frameworks:** ASP.NET, Blazor (Web Assembly + Server Side Rendering)
 - **Data Management:** Microsoft SQL Server, Entity Framework Core
-- **Tools:** HttpClient, Automapper, Bulma.css
+- **Tools:** HttpClient, Automapper, Tailwind.css
 - **Testing:** NUnit, Moq, Fluent Assertions
 - **General:** Dependency Injection, Layered Architecture, HTTP Request Handling,
   Repository-Service-Controller Pattern, Generics, Test Driven Development, Data Transfer Objects
 
 ## Future Improvements
 
-- Use Tailwind.css instead of Bulma for more frontend styling control
 - Full API coverage from frontend
 - Authentication
 
