@@ -1,0 +1,69 @@
+﻿@page "/records/{Id:int}"
+@rendermode InteractiveAuto
+@using RecordShop.Common.Models.RecordModel
+@implements IDisposable
+@inject PersistentComponentState ApplicationState
+@inject IHttpClientFactory ClientFactory
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private RecordGetDTO? record;
+    private PersistingComponentStateSubscription persistingSubscription;
+
+    protected override async Task OnInitializedAsync()
+    {
+        persistingSubscription = ApplicationState.RegisterOnPersisting(PersistData);
+
+        if (!ApplicationState.TryTakeFromJson<RecordGetDTO>(nameof(record), out var restoredData))
+        {
+            var client = ClientFactory.CreateClient("RecordShopAPI");
+            var response = await client.GetAsync($"/api/records/{Id}");
+            record = response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<RecordGetDTO>() : null;
+        }
+        else
+        {
+            record = restoredData!;
+        }
+    }
+
+    private Task PersistData()
+    {
+        ApplicationState.PersistAsJson(nameof(record), record);
+
+        return Task.CompletedTask;
+    }
+
+    void IDisposable.Dispose() 
+    {
+        persistingSubscription.Dispose();
+    }
+}
+
+@if (record == null)
+{
+    <PageTitle>Not Found</PageTitle>
+    <h1>Oops!</h1>
+    <p>This record page does not exist!</p>
+}
+else 
+{
+    
+    <PageTitle>@record.Title</PageTitle>
+    <div class="hero is-info">
+        <div class="hero-body">
+
+            <h1 class="title">@record.Title</h1>
+            <h2 class="subtitle">@record.Artist</h2>
+        </div>
+    </div>
+    <div class="section content">
+        <ul class="panel-list">
+            <li>Release Year: @record.ReleaseYear</li>
+            <li>Genre: @record.Genre</li>
+            <li>Price: @record.UnitPrice</li>
+            <li>Quantity in stock: @record.Quantity</li>
+        </ul>
+    </div>
+}

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using Moq;
-using RecordShop.Model;
+using RecordShop.Common.Models;
 using RecordShop.Repositories.Generic;
 using RecordShop.Services.Generic;
 using RecordShop.Services.Response;

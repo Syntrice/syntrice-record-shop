@@ -1,3 +1,11 @@
+@import "tailwindcss" source("./");
+/*@source "../../RecordShop.Frontend/Components";*/
+@source "../../RecordShop.Frontend.Client/Pages";
+@source "../../RecordShop.Frontend.Client/Layout";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Default app.css selectors */
+
 h1:focus {
     outline: none;
 }
@@ -27,3 +35,4 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+

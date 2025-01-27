@@ -1,4 +1,4 @@
-﻿using RecordShop.Model;
+﻿using RecordShop.Common.Models;
 
 namespace RecordShop.Repositories.Generic
 {

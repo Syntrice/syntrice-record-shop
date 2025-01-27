@@ -1,0 +1,19 @@
+﻿@using RecordShop.Common.Models.RecordModel
+
+@code {
+    [Parameter]
+    public RecordGetDTO? Record { get; set; } = null;
+}
+
+@if (Record != null)
+{
+    <div class="block">
+        <a class="is-link" href="/records/@Record.Id">
+            <div class="card section">
+                <h1 class="title">@Record.Title</h1>
+                <h2 class="subtitle">@Record.Artist</h2>
+            </div>
+        </a>
+    </div>
+}
+

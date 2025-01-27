@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RecordShop.Common\RecordShop.Common.csproj" />
     <ProjectReference Include="..\RecordShop\RecordShop.csproj" />
   </ItemGroup>
 

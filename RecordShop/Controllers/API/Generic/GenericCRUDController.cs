@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RecordShop.Model;
+using RecordShop.Common.Models;
 using RecordShop.Services.Generic;
 using RecordShop.Services.Response;
 

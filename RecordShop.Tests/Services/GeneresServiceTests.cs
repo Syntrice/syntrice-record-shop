@@ -1,4 +1,4 @@
-﻿using RecordShop.Model.GenreModel;
+﻿using RecordShop.Common.Models.GenreModel;
 using RecordShop.Tests.Services.Generic;
 
 namespace RecordShop.Tests.Services

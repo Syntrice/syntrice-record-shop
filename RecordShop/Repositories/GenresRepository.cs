@@ -1,5 +1,5 @@
-﻿using RecordShop.Model.Database;
-using RecordShop.Model.GenreModel;
+﻿using RecordShop.Database;
+using RecordShop.Common.Models.GenreModel;
 using RecordShop.Repositories.Generic;
 
 namespace RecordShop.Repositories
