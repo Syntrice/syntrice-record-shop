@@ -1,0 +1,12 @@
+﻿@code {
+    [Parameter]
+    public bool IsMobile { get; set; }
+}
+
+<nav id="navbarList" class="@(IsMobile ? "grow flex gap-6 flex-col items-end mt-5 md:hidden" : "flex grow justify-end gap-6 align-middle max-md:hidden")">
+
+    <NavItem Link="">Home</NavItem>
+    <NavItem Link="records">Records</NavItem>
+    <DarkmodeToggle/>
+
+</nav>

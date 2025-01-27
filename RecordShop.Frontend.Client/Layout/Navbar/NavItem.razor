@@ -1,0 +1,14 @@
+﻿
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public string Link { get; set; } = "";
+}
+
+<div class="flex cursor-pointer rounded-2xl align-middle transition-colors hover:bg-gray-100 active:bg-gray-100 dark:active:bg-slate-600 dark:hover:bg-slate-600">
+    <NavLink href="@Link" class="p-4">
+        @ChildContent
+    </NavLink>
+</div>

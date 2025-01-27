@@ -1,4 +1,8 @@
-@import "tailwindcss" source("../../");
+@import "tailwindcss" source("./");
+/*@source "../../RecordShop.Frontend/Components";*/
+@source "../../RecordShop.Frontend.Client/Pages";
+@source "../../RecordShop.Frontend.Client/Layout";
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* Default app.css selectors */
 
