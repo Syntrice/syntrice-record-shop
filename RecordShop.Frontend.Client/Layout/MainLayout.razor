@@ -1,12 +1,37 @@
-﻿@using RecordShop.Frontend.Client.Layout.Footer
+﻿@using RecordShop.Frontend.Client.Services
+@using RecordShop.Frontend.Client.Layout.Footer
 @using RecordShop.Frontend.Client.Layout.Navbar
 @inherits LayoutComponentBase
+@inject IProfileService ProfileService
 
-<Navbar/>
-<main class="section">
-    @Body
-</main>
-<Footer />
+@code {
+    private Preferences _preferences = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        ProfileService.OnChange += ProfileServiceOnChange;
+
+        if (firstRender)
+        {
+            _preferences = await ProfileService.GetPreferencesAsync();
+            StateHasChanged();
+        }
+    }
+
+    private void ProfileServiceOnChange(Preferences newPreferences)
+    {
+        _preferences = newPreferences;
+        StateHasChanged();
+    }
+}
+
+<div class="@(_preferences.DarkMode ? "dark" : "")">
+    <Navbar/>
+    <main class="section">
+        @Body
+    </main>
+    <Footer />
+</div>
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.
