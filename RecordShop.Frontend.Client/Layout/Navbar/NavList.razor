@@ -2,13 +2,6 @@
 
 
 @code {
-    private bool isPrerendering;
-
-    protected override void OnInitialized()
-    {
-        isPrerendering = RuntimeInformation.ProcessArchitecture != Architecture.Wasm;
-    }
-
     [Parameter]
     public bool IsMobile { get; set; }
 }
@@ -17,9 +10,6 @@
 
     <NavItem Link="">Home</NavItem>
     <NavItem Link="records">Records</NavItem>
-
-    @if(!isPrerendering)
-    {
-        <DarkmodeToggle />
-    }
+    <DarkmodeToggle />
+  
 </nav>
