@@ -1,6 +1,6 @@
+using Blazored.LocalStorage;
 using RecordShop.Frontend.Client.Services;
 using RecordShop.Frontend.Components;
-using RecordShop.Frontend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +13,10 @@ builder.Services.AddRazorComponents()
 // Create a named HTTP client connecting to the RecordShop backend
 // This is duplicated on the client blazor project
 builder.Services.AddHttpClient("RecordShopAPI", client => client.BaseAddress = new Uri(builder.Configuration["BackendUrl"] ?? "https://localhost:7196"));
-builder.Services.AddScoped<IProfileService, ServerProfileService>();
+
+builder.Services.AddBlazoredLocalStorage();
+
+builder.Services.AddScoped<IProfileService, ProfileService>();
 
 var app = builder.Build();
 

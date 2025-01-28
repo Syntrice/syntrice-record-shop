@@ -7,11 +7,14 @@
 @code {
     private Preferences _preferences = new();
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        ProfileService.OnChange += ProfileServiceOnChange;
-        _preferences = await ProfileService.GetPreferencesAsync();
-        StateHasChanged();
+        if (firstRender)
+        {
+            ProfileService.OnChange += ProfileServiceOnChange;
+            _preferences = await ProfileService.GetPreferencesAsync();
+            StateHasChanged();
+        }
     }
 
     private void ProfileServiceOnChange(Preferences newPreferences)

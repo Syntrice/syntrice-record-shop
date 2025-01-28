@@ -12,6 +12,7 @@
     <ProjectReference Include="..\RecordShop.Common\RecordShop.Common.csproj" />
     <ProjectReference Include="..\RecordShop\RecordShop.csproj" />
     <ProjectReference Include="..\RecordShop.Frontend.Client\RecordShop.Frontend.Client.csproj" />
+    <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.12" />
   </ItemGroup>
   
