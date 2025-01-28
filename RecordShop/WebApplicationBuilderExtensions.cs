@@ -45,5 +45,15 @@ namespace RecordShop
             builder.Services.AddScoped<IRecordsService, RecordsService>();
             builder.Services.AddScoped<IArtistsService, ArtistsService>();
         }
+
+        public static void SetupCors(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddCors(
+            options => options.AddDefaultPolicy(
+                policy => policy.WithOrigins([builder.Configuration["BackendUrl"] ?? "https://localhost:7196",
+                    builder.Configuration["FrontendUrl"] ?? "https://localhost:7144"])
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()));
+        }
     }
 }
