@@ -28,7 +28,7 @@ If you are running windows, the easiest way to build this solution is through Mi
 1. Clone the repository
 
 ```powershell
-git clone "https://github.com/Syntrice/syntrice-contact-manager"
+git clone "https://github.com/Syntrice/syntrice-record-shop"
 ```
 
 2. Navigate to repository root
