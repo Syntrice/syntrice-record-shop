@@ -3,7 +3,7 @@
 
 ## About
 
-**Syntrice Recor Shop** is a full-stack web application built upon [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet). 
+**Syntrice Record Shop** is a full-stack web application built upon [ASP.NET](https://dotnet.microsoft.com/en-us/apps/aspnet). 
 It consists of a backend RESTful API and a Dynamic Web Application, designed to be run as separate microservices. 
 
 ## Technologies
