@@ -23,7 +23,7 @@ It consists of a backend RESTful API and a Dynamic Web Application, designed to 
 
 ## Setup
 
-If you are running windows, the easiest way to build this solution is through Microsoft Visual Studio 2022. You will also need .NET 8.0 installed.
+If you are running windows, the easiest way to build this solution is through Microsoft Visual Studio 2022. You will also need .NET 8.0 installed. You can open the .sln file in this repository and run / build from inside Visual Studio. Alternatively, with .NET 8.0 SDK installed run the following:
 
 1. Clone the repository
 
@@ -34,7 +34,7 @@ git clone "https://github.com/Syntrice/syntrice-record-shop"
 2. Navigate to repository root
 
 ```powershell
-cd "./syntrice-contact-manager"
+cd "./syntrice-record-shop"
 ```
 
 3. Restore dependencies
@@ -46,13 +46,12 @@ dotnet restore
 4. Build Project
 
 ```powershell
-dotnet build "./ContactManager.sln"
+dotnet build "./RecordShop.sln"
 ```
 
-As part of this process, you will also need to configure a sql server connection string. 
-This can point to a locally installed SQL Server service, or any other location. 
+As part of this process, you will also need to configure a sql server connection string.
+This can point to a locally installed SQL Server service, or any other location.
 You will need to apply a migration to this database to ensure that it is created.
-Instructions on how to do this are coming soon!
 
 ## Licence
 
